@@ -1,0 +1,18 @@
+#pragma once
+
+#include "IShapeStrategy.h"
+
+class TextStrategy : public shapes::IShapeStrategy
+{
+public:
+    TextStrategy(double left, double top,
+        double fontSize, const std::string& text);
+
+    void MoveShape(double dx, double dy) override;
+    void DrawShape() const override;
+    std::string ToString() const override;
+
+private:
+    double m_left, m_top, m_fontSize;
+    std::string m_text;
+};
