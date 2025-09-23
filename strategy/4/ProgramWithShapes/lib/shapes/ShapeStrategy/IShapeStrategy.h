@@ -4,16 +4,14 @@
 
 namespace shapes 
 {
-
-
-class IShapeStrategy
-{
-public:
+	class IShapeStrategy
+	{
+	public:
 	
-	virtual ~IShapeStrategy(){};
-	virtual void MoveShape(double dx, double dy) = 0;
-	virtual void DrawShape() const = 0;
-	virtual std::string ToString() const = 0;
+		virtual ~IShapeStrategy(){};
+		virtual void MoveShape(double dx, double dy) = 0;
+		virtual void DrawShape() const = 0;
+		virtual std::string ToString() const = 0;
 
-};
+	};
 }
