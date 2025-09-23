@@ -5,11 +5,11 @@
 class RectangleStrategy : public shapes::IShapeStrategy
 {
 public:
-	RectangleStrategy(double lift, double top, 
+	RectangleStrategy(double left, double top, 
 		double width, double height);
 
 	void MoveShape(double dx, double dy) override;
-	void DrawShape(gfx::ICanvas& canvas) const override;
+	void DrawShape(gfx::ICanvas& canvas, gfx::Color& color) const override;
 	std::string ToString() const override;
 
 private:

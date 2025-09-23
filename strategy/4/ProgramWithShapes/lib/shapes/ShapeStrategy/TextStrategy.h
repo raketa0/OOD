@@ -9,7 +9,7 @@ public:
         double fontSize, const std::string& text);
 
     void MoveShape(double dx, double dy) override;
-    void DrawShape(gfx::ICanvas& canvas) const override;
+    void DrawShape(gfx::ICanvas& canvas, gfx::Color& color) const override;
     std::string ToString() const override;
 
 private:

@@ -32,7 +32,7 @@ void shapes::CShape::MoveShape(double dx, double dy)
 
 void shapes::CShape::DrawShape(gfx::ICanvas& canvas)
 {
-	m_shapeStrategy->DrawShape(canvas);
+	m_shapeStrategy->DrawShape(canvas, m_color);
 }
 
 void shapes::CShape::ChangeShape(std::unique_ptr<IShapeStrategy>&& newShapeStrategy)
