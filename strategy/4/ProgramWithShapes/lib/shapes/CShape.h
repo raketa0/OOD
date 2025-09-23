@@ -32,17 +32,17 @@ namespace shapes
 	
 		void SetColor(const gfx::Color& newColor)
 		{
-			
+			m_color = newColor;
 		}
 
-		void MoveShape(double dx, double dy) //перемещать
+		void MoveShape(double dx, double dy)
 		{
 			m_shapeStrategy->MoveShape(dx, dy);
 		}
 
-		void DrawShape(gfx::ICanvas& canvas) //рисовать
+		void DrawShape(gfx::ICanvas& canvas)
 		{
-
+			m_shapeStrategy->DrawShape();
 		}
 
 		void ChangeShape(std::unique_ptr<IShapeStrategy>&& newShapeStrategy)
