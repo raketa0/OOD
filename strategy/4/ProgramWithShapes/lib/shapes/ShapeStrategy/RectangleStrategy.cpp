@@ -14,8 +14,8 @@ void RectangleStrategy::DrawShape(gfx::ICanvas& canvas, gfx::Color& color) const
 	canvas.SetColor(color);
 	canvas.MoveTo(m_left, m_top);
 	canvas.LineTo(m_left + m_width, m_top);
-	canvas.LineTo(m_left + m_width, m_top - m_height);
-	canvas.LineTo(m_left, m_top - m_height);
+	canvas.LineTo(m_left + m_width, m_top + m_height);
+	canvas.LineTo(m_left, m_top + m_height);
 	canvas.LineTo(m_left, m_top);
 }
 

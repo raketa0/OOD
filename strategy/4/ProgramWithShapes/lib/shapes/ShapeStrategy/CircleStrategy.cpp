@@ -1,7 +1,7 @@
 #include "CircleStrategy.h"
 
 CircleStrategy::CircleStrategy(double cx, double cy, double r):
-	m_cx(cx), m_cy(cy), m_r(r){}
+	m_cx(cx-r), m_cy(cy-r), m_r(r){}
 
 void CircleStrategy::MoveShape(double dx, double dy)
 {

@@ -44,4 +44,5 @@ void shapes::CShape::ChangeShape(std::unique_ptr<IShapeStrategy>&& newShapeStrat
 std::string shapes::CShape::ToString()
 {
 	m_shapeStrategy->ToString();
+	return"";
 }
