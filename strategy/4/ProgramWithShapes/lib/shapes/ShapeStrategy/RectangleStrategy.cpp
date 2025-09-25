@@ -1,15 +1,15 @@
 #include "RectangleStrategy.h"
 
-RectangleStrategy::RectangleStrategy(double left, double top, double width, double height):
+shapes::RectangleStrategy::RectangleStrategy(double left, double top, double width, double height):
 	m_left(left), m_top(top), m_width(width), m_height(height){}
 
-void RectangleStrategy::MoveShape(double dx, double dy)
+void shapes::RectangleStrategy::MoveShape(double dx, double dy)
 {
 	m_left = m_left + dx;
 	m_top = m_top + dy;
 }
 
-void RectangleStrategy::DrawShape(gfx::ICanvas& canvas, gfx::Color& color) const
+void shapes::RectangleStrategy::DrawShape(gfx::ICanvas& canvas, gfx::Color& color) const
 {
 	canvas.SetColor(color);
 	canvas.MoveTo(m_left, m_top);
@@ -19,7 +19,7 @@ void RectangleStrategy::DrawShape(gfx::ICanvas& canvas, gfx::Color& color) const
 	canvas.LineTo(m_left, m_top);
 }
 
-std::string RectangleStrategy::ToString() const
+std::string shapes::RectangleStrategy::ToString() const
 {
 	return std::string();
 }

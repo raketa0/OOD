@@ -13,11 +13,11 @@
 int main()
 {
     sf::RenderWindow window(sf::VideoMode({ 600, 600 }), "SFML works!");
-    RectangleStrategy rec(100, 100, 130, 150);
+   shapes::RectangleStrategy rec(100, 100, 130, 150);
     gfx::CCanvas c(window,{0, 0}, sf::Color::Blue);
-    CircleStrategy cir(165, 175, 50);
-    TextStrategy tt(100, 100, 26, "Hellot");
-    TriangleStrategy tri(165, 20, 100, 100, 230, 100);
+    shapes::CircleStrategy cir(165, 175, 50);
+    shapes::TextStrategy tt(100, 100, 26, "Hellot");
+    shapes::TriangleStrategy tri(165, 20, 100, 100, 230, 100);
     gfx::Color color;
     color.r = 75;
     color.g = 75;

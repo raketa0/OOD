@@ -1,8 +1,11 @@
 #pragma once
 
-class ICommand 
+namespace command
 {
-public:
-    virtual ~ICommand() = default;
-    virtual void Execute() = 0;
-};
+    class ICommand 
+    {
+    public:
+        virtual ~ICommand() = default;
+        virtual void Execute() = 0;
+    };
+}

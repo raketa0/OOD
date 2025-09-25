@@ -1,12 +1,12 @@
 #include "TriangleStrategy .h"
 
-TriangleStrategy::TriangleStrategy(double x1, double y1,
+shapes::TriangleStrategy::TriangleStrategy(double x1, double y1,
     double x2, double y2,
     double x3, double y3)
     : m_x1(x1), m_y1(y1), m_x2(x2), m_y2(y2), m_x3(x3), m_y3(y3) {
 }
 
-void TriangleStrategy::MoveShape(double dx, double dy)
+void shapes::TriangleStrategy::MoveShape(double dx, double dy)
 {
     m_x1 += dx; 
     m_y1 += dy;
@@ -16,7 +16,7 @@ void TriangleStrategy::MoveShape(double dx, double dy)
     m_y3 += dy;
 }
 
-void TriangleStrategy::DrawShape(gfx::ICanvas& canvas, gfx::Color& color) const
+void shapes::TriangleStrategy::DrawShape(gfx::ICanvas& canvas, gfx::Color& color) const
 {
     canvas.SetColor(color);
     canvas.MoveTo(m_x1, m_y1);
@@ -25,7 +25,7 @@ void TriangleStrategy::DrawShape(gfx::ICanvas& canvas, gfx::Color& color) const
     canvas.LineTo(m_x1, m_y1);
 }
 
-std::string TriangleStrategy::ToString() const
+std::string shapes::TriangleStrategy::ToString() const
 {
 	return std::string();
 }
