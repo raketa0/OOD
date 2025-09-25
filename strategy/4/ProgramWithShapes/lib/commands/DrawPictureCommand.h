@@ -11,9 +11,7 @@ namespace command
     public:
         DrawPictureCommand(shapes::CPicture& picture,
             gfx::ICanvas& canvas)
-            : m_picture(picture), m_canvas(canvas) 
-        {
-        }
+            : m_picture(picture), m_canvas(canvas) {}
 
         void Execute() override 
         {
