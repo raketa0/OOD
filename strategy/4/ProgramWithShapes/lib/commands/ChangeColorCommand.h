@@ -1,33 +1,34 @@
 #pragma once
 #include"ICommand.h"
 #include <string>
-#include <memory>
 #include "../shapes/CPicture.h"
 
 
 namespace command
 {
-	class MoveShapeCommand : public ICommand
+	class ChangeColorCommand : public ICommand
 	{
 	public:
-		MoveShapeCommand(shapes::CPicture& picture,
-			std::string id, double dx, double dy) 
-			:m_picture(picture), m_id(id), m_dx(dx), m_dy(dy){}
+		ChangeColorCommand(shapes::CPicture& picture,
+			const std::string& id,
+			const gfx::Color& color)
+			: m_picture(picture), m_id(id), m_color(color) {}
 
 		void Execute() override
 		{
 			auto shape = m_picture.GetShape(m_id);
-			if (shape)
+			if (shape) 
 			{
-				shape->MoveShape(m_dx, m_dy);
+				shape->SetColor(m_color);
 			}
 		}
 
 	private:
 		shapes::CPicture& m_picture;
 		std::string m_id;
-		double m_dx, m_dy;
+		gfx::Color m_color;
 
 	};
-
 }
+
+

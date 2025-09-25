@@ -28,5 +28,4 @@ namespace shapes
 		gfx::Color m_color;
 		std::unique_ptr<IShapeStrategy>&& m_shapeStrategy;
 	};
-
 };
