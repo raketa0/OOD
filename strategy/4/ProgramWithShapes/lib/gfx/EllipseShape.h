@@ -6,8 +6,6 @@ class EllipseShape : public sf::Shape
 public:
     explicit EllipseShape(sf::Vector2f radius) : m_radius(radius)
     {
-        setFillColor(sf::Color::Transparent);
-        setOutlineThickness(1.0f);
         update();
     }
 
