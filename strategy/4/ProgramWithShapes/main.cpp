@@ -1,33 +1,38 @@
 #include <SFML/Graphics.hpp>
-#include "lib/shapes/ShapeStrategy/RectangleStrategy.h"
 #include "lib/gfx/CCanvas.h"
 #include "lib/gfx/ICanvas.h"
 #include "lib/gfx/Color.h"
-#include "lib/shapes/ShapeStrategy/CircleStrategy.h"
-#include "lib/shapes/ShapeStrategy/TextStrategy.h"
-#include "lib/shapes/ShapeStrategy/TriangleStrategy .h"
+#include "lib/controller/CommandParser.h"
+#include <iostream>
+#include <queue>
+#include <mutex>
 
 
+std::queue<std::string> g_commands;
+std::mutex g_mutex;
 
+// Поток для чтения команд
+void inputThread() {
+    std::string line;
+    while (std::getline(std::cin, line)) {
+        if (!line.empty()) {
+            std::lock_guard<std::mutex> lock(g_mutex);
+            g_commands.push(line);
+        }
+    }
+}
 
 int main()
 {
-    sf::RenderWindow window(sf::VideoMode({ 600, 600 }), "SFML works!");
-   shapes::RectangleStrategy rec(100, 100, 130, 150);
-    gfx::CCanvas c(window,{0, 0}, sf::Color::Blue);
-    shapes::CircleStrategy cir(165, 175, 50);
-    shapes::TextStrategy tt(100, 100, 26, "Hellot");
-    shapes::TriangleStrategy tri(165, 20, 100, 100, 230, 100);
-    gfx::Color color;
-    color.r = 75;
-    color.g = 75;
-    color.b = 175;
-    gfx::Color color1;
-    color1.r = 175;
-    color1.g = 175;
-    color1.b = 35;
-    auto rec1 = rec;
-    rec1.MoveShape(15, 45);
+    std::thread reader(inputThread);
+    reader.detach(); // поток живет сам по себе
+
+    sf::RenderWindow window(sf::VideoMode({ 600, 600 }), "SFML Shapes App");
+    shapes::CPicture picture;
+    gfx::CCanvas canvas(window, { 0, 0 }, sf::Color::Blue);
+
+    parser::CommandParser parser(picture, canvas);
+
     while (window.isOpen())
     {
         while (const std::optional event = window.pollEvent())
@@ -37,15 +42,42 @@ int main()
                 window.close();
         }
 
-        window.clear();
-        c.SetColor(color);
+        {
+            std::lock_guard<std::mutex> lock(g_mutex);
+            while (!g_commands.empty()) {
+                std::string cmdLine = g_commands.front();
+                g_commands.pop();
 
-        rec.DrawShape(c, color);
-        rec1.DrawShape(c, color1);
+                if (cmdLine == "exit") {
+                    window.close();
+                    break;
+                }
 
-        cir.DrawShape(c, color);
-        tt.DrawShape(c, color);
-        tri.DrawShape(c, color);
+                try {
+                    auto cmd = parser.Parse(cmdLine);
+                    if (cmd) {
+                        cmd->Execute();
+                    }
+                }
+                catch (const std::exception& ex) {
+                    std::cout << "Error: " << ex.what() << "\n";
+                }
+            }
+        }
+        window.clear(sf::Color::Black);
+
+        // Важно: если по заданию эффект DrawShape/DrawPicture *накапливается*,
+        // то реализация с очисткой экрана каждый кадр перерисовывает всё заново
+        // и, строго говоря, не накапливает "растровые следы".
+        // Обычно перерисовка всей сцены каждый кадр — нормальная практика.
+        // Если требуется действительно "накопление" в растровом буфере,
+        // нужно отрисовывать в RenderTexture и не очищать его между Draw calls.
+        picture.DrawPicture(canvas);
+
         window.display();
     }
+
+
+
+
 }

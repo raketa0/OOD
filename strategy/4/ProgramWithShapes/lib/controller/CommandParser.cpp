@@ -9,7 +9,7 @@ namespace parser
 
     gfx::Color CommandParser::ParseColor(const std::string& hex) 
     {
-        if (hex.size() != 7 || hex[0] != '#' || hex.size() != 3) 
+        if (hex.size() != 7 || hex[0] != '#') 
         {
             throw std::runtime_error("Invalid color format. Expected #RRGGBB");
         }
