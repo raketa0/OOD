@@ -63,3 +63,4 @@ bld/
 *.ilk
 
 .SFML/
+SFML/

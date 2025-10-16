@@ -9,7 +9,7 @@ namespace shapes
 	class CPicture
 	{
 	public:
-		void AddShape(std::shared_ptr<CShape> shape);
+		void AddShape(std::shared_ptr<CShape>& shape);
 		void DeleteShape(std::string id);
 		void MovePicture(double dx, double dy);
 		void DrawPicture(gfx::ICanvas& canvas);

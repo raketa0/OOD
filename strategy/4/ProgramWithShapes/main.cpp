@@ -11,11 +11,13 @@
 std::queue<std::string> g_commands;
 std::mutex g_mutex;
 
-// Поток для чтения команд
-void inputThread() {
+void inputThread() 
+{
     std::string line;
-    while (std::getline(std::cin, line)) {
-        if (!line.empty()) {
+    while (std::getline(std::cin, line)) 
+    {
+        if (!line.empty()) 
+        {
             std::lock_guard<std::mutex> lock(g_mutex);
             g_commands.push(line);
         }
@@ -24,8 +26,9 @@ void inputThread() {
 
 int main()
 {
+
     std::thread reader(inputThread);
-    reader.detach(); // поток живет сам по себе
+    reader.detach();
 
     sf::RenderWindow window(sf::VideoMode({ 600, 600 }), "SFML Shapes App");
     shapes::CPicture picture;
@@ -44,11 +47,13 @@ int main()
 
         {
             std::lock_guard<std::mutex> lock(g_mutex);
-            while (!g_commands.empty()) {
+            while (!g_commands.empty()) 
+            {
                 std::string cmdLine = g_commands.front();
                 g_commands.pop();
 
-                if (cmdLine == "exit") {
+                if (cmdLine == "exit") 
+                {
                     window.close();
                     break;
                 }
@@ -66,12 +71,6 @@ int main()
         }
         window.clear(sf::Color::Black);
 
-        // Важно: если по заданию эффект DrawShape/DrawPicture *накапливается*,
-        // то реализация с очисткой экрана каждый кадр перерисовывает всё заново
-        // и, строго говоря, не накапливает "растровые следы".
-        // Обычно перерисовка всей сцены каждый кадр — нормальная практика.
-        // Если требуется действительно "накопление" в растровом буфере,
-        // нужно отрисовывать в RenderTexture и не очищать его между Draw calls.
         picture.DrawPicture(canvas);
 
         window.display();

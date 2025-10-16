@@ -26,6 +26,6 @@ namespace shapes
 	private:
 		std::string m_id;
 		gfx::Color m_color;
-		std::unique_ptr<IShapeStrategy>&& m_shapeStrategy;
+		std::unique_ptr<IShapeStrategy> m_shapeStrategy;
 	};
 };

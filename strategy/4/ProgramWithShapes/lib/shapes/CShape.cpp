@@ -1,12 +1,15 @@
 #include "CShape.h"
+#include <stdexcept>
+#include <iostream>
 
 shapes::CShape::CShape(const std::string id,
 	const gfx::Color& color,
 	std::unique_ptr<IShapeStrategy>&& shapeStrategy) :
 	m_id(id),
-	m_shapeStrategy(std::move(shapeStrategy)),
+	//m_shapeStrategy(std::move(shapeStrategy)),
 	m_color(color)
 {
+	ChangeShape(std::move(shapeStrategy));
 	assert(m_shapeStrategy);
 }
 
@@ -32,7 +35,11 @@ void shapes::CShape::MoveShape(double dx, double dy)
 
 void shapes::CShape::DrawShape(gfx::ICanvas& canvas)
 {
-	m_shapeStrategy->DrawShape(canvas);
+	if (!m_shapeStrategy) {
+		throw std::runtime_error("No strategy set for shape");
+	}
+	
+	m_shapeStrategy->DrawShape(canvas, m_color);
 }
 
 void shapes::CShape::ChangeShape(std::unique_ptr<IShapeStrategy>&& newShapeStrategy)

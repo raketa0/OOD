@@ -74,7 +74,6 @@ private:
 		{
 			Quack();
 		}
-
 	}
 
 };

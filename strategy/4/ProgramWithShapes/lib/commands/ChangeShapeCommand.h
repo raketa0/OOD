@@ -27,6 +27,6 @@ namespace command
     private:
         shapes::CPicture& m_picture;
         std::string m_id;
-        std::unique_ptr<shapes::IShapeStrategy> && m_shapeStrategy;
+        std::unique_ptr<shapes::IShapeStrategy>  m_shapeStrategy;
     };
 }

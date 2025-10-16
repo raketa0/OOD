@@ -2,7 +2,7 @@
 #include <memory>
 #include "../SimUDuck/lib/Duck/Fly/IFlyBehavior.h"
 #include "../SimUDuck/lib/Duck/Quack/IQuakBehavior.h"
-
+//разобраться в типах связи
 
 class MockDuck
 {
