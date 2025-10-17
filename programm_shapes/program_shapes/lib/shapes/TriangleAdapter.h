@@ -3,6 +3,8 @@
 #include "../canvas/ICanvas.h"
 
 #include <cmath>
+#include "../tools/ShapesStruct.h"
+
 
 class TriangleAdapter : public IShape
 {
@@ -11,6 +13,8 @@ public:
 	double Perimeter() override;
 	double Area() override;
 	void DrawShape(ICanvas& canvas) override;
+	std::string GetType() override;
+
 private:
 	Triangle m_triangle;
 

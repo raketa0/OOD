@@ -2,9 +2,8 @@
 #include "IShape.h"
 #include "../canvas/ICanvas.h"
 #include "../tools/ShapesStruct.h"
+#include "../tools/Constants.h"
 
-
-const double PI = 3.14159265358979323846;
 
 
 class CircleAdapter : public IShape
@@ -14,8 +13,9 @@ public:
 	double Perimeter() override;
 	double Area() override;
 	void DrawShape(ICanvas& canvas) override;
-
+	std::string GetType() override;
 private:
 	Circle m_circle;
+
 };
 

@@ -1,6 +1,6 @@
 #pragma once
 #include "../tools/ShapesStruct.h"
-
+#include <SFML/Graphics.hpp>
 
 
 class ICanvas

@@ -1,7 +1,6 @@
 #pragma once
 #include "ICanvas.h"
-#include <SFML/Graphics.hpp>
-#include "../tools/ShapesStruct.h"
+
 
 class CCanvas : public ICanvas
 {

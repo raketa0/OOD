@@ -1,4 +1,5 @@
 #include "CircleAdapter.h"
+#include <string>
 
 
 CircleAdapter::CircleAdapter(Circle circle):
@@ -18,4 +19,9 @@ double CircleAdapter::Area()
 void CircleAdapter::DrawShape(ICanvas& canvas)
 {
 	canvas.drawCircle(m_circle);
+}
+
+std::string CircleAdapter::GetType()
+{
+	return m_circle.type;
 }

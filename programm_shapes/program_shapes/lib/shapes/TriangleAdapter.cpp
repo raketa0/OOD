@@ -25,3 +25,8 @@ void TriangleAdapter::DrawShape(ICanvas& canvas)
 {
     canvas.drawTriangle(m_triangle);
 }
+
+std::string TriangleAdapter::GetType()
+{
+    return m_triangle.type;
+}

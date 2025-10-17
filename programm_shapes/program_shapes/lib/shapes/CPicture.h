@@ -3,7 +3,15 @@
 #include <vector>
 #include "IShape.h"
 #include <string>
+#include "CircleAdapter.h"
+#include "RectangleAdapter.h"
+#include "TriangleAdapter.h"
+#include <fstream>
+#include <iostream>
 
+#include <sstream>
+#include "../tools/Parser.h"
+#include "../tools/ShapesStruct.h"
 
 
 class CPicture

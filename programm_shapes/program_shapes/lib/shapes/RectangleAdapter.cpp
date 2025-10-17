@@ -1,5 +1,4 @@
 #include "RectangleAdapter.h"
-#include "../tools/ShapesStruct.h"
 
 RectangleAdapter::RectangleAdapter(Rectangle rectange):
 	m_rectange(rectange) {}
@@ -18,3 +17,9 @@ void RectangleAdapter::DrawShape(ICanvas& canvas)
 {
 	canvas.drawRectangle(m_rectange);
 }
+
+std::string RectangleAdapter::GetType()
+{
+	return m_rectange.type;
+}
+

@@ -1,18 +1,19 @@
 #include "Parser.h"
+#include "Constants.h"
 
 
 
 Shape StrTypeInEnum(std::string type)
 {
-    if (type == "CIRCLE:")
+    if (type == CIRCLE_TYPE)
     {
         return CIRCLE;
     }
-    else if (type == "RECTANGLE:")
+    else if (type == RECTANGLE_TYPE)
     {
         return RECTANGLE;
     }
-    else if (type == "TRIANGLE:")
+    else if (type == TRIANGLE_TYPE)
     {
         return TRIANGLE;
     }
@@ -20,28 +21,36 @@ Shape StrTypeInEnum(std::string type)
     {
         return ERROR;
     }
-
 }
 
 Circle ParserCircle(std::string line)
 {
     Circle circle;
     char ch;
+    char chSecond;
+
     std::stringstream ss(line);
     while (ss >> ch)
     {
-        if (ch == '=') 
-        { 
-            ss >> circle.centerCircle.x;
+        if (ch == C_PREFIX)
+        {
+            ss >> ch;
+            if (ch == EQUAL_SIGN)
+            {
+                ss >> circle.centerCircle.x;
+            }
         }
-        if (ch == ',') 
-        { 
+        if (ch == COMMA_CHAR)
+        {
             ss >> circle.centerCircle.y;
         }
-        if (ch == 'R')
+        if (ch == RADIUS_PREFIX)
         {
-            ss.ignore(1);
-            ss >> circle.radius;
+            ss >> ch;
+            if (ch == EQUAL_SIGN)
+            {
+                ss >> circle.radius;
+            }
         }
     }
     return circle;
@@ -51,32 +60,32 @@ Rectangle ParserRectangle(std::string line)
 {
     Rectangle rectangle;
     char ch;
-    int countFirst = 0;
-    int countSecond = 0;
-    int x1 = 0, y1 = 0, x2 = 0, y2 = 0;
+    int countFirst = ZERO;
+    int countSecond = ZERO;
+    int x1 = ZERO, y1 = ZERO, x2 = ZERO, y2 = ZERO;
     std::stringstream ss(line);
-    
-    while (ss >> ch) 
+
+    while (ss >> ch)
     {
-        if (ch == '=') 
+        if (ch == EQUAL_SIGN)
         {
-            if (countFirst == 0)
+            if (countFirst == FIRST_COORD_COUNT)
             {
                 ss >> x1;
             }
-            else if (countFirst == 1)
+            else if (countFirst == SECOND_COORD_COUNT)
             {
                 ss >> x2;
             }
             countFirst++;
         }
-        else if (ch == ',')
+        else if (ch == COMMA_CHAR)
         {
-            if (countSecond == 0)
+            if (countSecond == FIRST_COORD_COUNT)
             {
                 ss >> y1;
             }
-            else if (countSecond == 1)
+            else if (countSecond == SECOND_COORD_COUNT)
             {
                 ss >> y2;
             }
@@ -97,27 +106,27 @@ Triangle ParserTriangle(std::string line)
     char ch;
     std::stringstream ss(line);
 
-    int nums[6] = { 0 };
-    int i = 0;
+    int nums[TOTAL_COORDS] = { ZERO };
+    int i = ZERO;
 
-    while (ss >> ch) 
+    while (ss >> ch)
     {
-        if (ch == '=')
+        if (ch == EQUAL_SIGN)
         {
             ss >> nums[i++];
         }
-        if (ch == ',') 
-        { 
-            ss >> nums[i++]; 
+        if (ch == COMMA_CHAR)
+        {
+            ss >> nums[i++];
         }
     }
 
-    triangle.firstPoint.x = nums[0]; 
-    triangle.firstPoint.y = nums[1];
-    triangle.secondPoint.x = nums[2];
-    triangle.secondPoint.y = nums[3];
-    triangle.thirdPoint.x = nums[4];
-    triangle.thirdPoint.y = nums[5];
+    triangle.firstPoint.x = nums[FIRST_X_INDEX];
+    triangle.firstPoint.y = nums[FIRST_Y_INDEX];
+    triangle.secondPoint.x = nums[SECOND_X_INDEX];
+    triangle.secondPoint.y = nums[SECOND_Y_INDEX];
+    triangle.thirdPoint.x = nums[THIRD_X_INDEX];
+    triangle.thirdPoint.y = nums[THIRD_Y_INDEX];
 
     return triangle;
 }

@@ -1,14 +1,6 @@
 #include "CPicture.h"
-#include "CircleAdapter.h"
-#include "RectangleAdapter.h"
-#include "TriangleAdapter.h"
-#include <fstream>
-#include <iostream>
-#include <string>
-#include <memory>
-#include <sstream>
-#include "../tools/Parser.cpp"
-#include "../tools/ShapesStruct.h"
+#include "../tools/Constants.h"
+
 
 
 void CPicture::AddShape(std::unique_ptr<IShape> shape)
@@ -29,7 +21,7 @@ void CPicture::LoadFromFile(const std::string& filename)
     std::ifstream fin(filename);
     if (!fin.is_open()) 
     {
-        std::cout << "Не удалось открыть " << filename << std::endl;
+        std::cout << ERROR_OPENING_FILE << filename << std::endl;
         return;
     }
 
@@ -74,17 +66,17 @@ void CPicture::LoadFromFile(const std::string& filename)
 
 void CPicture::OutCharacteristics()
 {
-    std::ofstream fout("output.txt");
+    std::ofstream fout(OUTPUT_FILE);
     if (!fout.is_open())
     {
-        std::cerr << "Ошибка открытия output.txt" << std::endl;
+        std::cerr << OUTPUT_FILE_ERROR << std::endl;
         return;
     }
 
     for (auto& shape : m_shapes)
     {
-        fout << ": P=" << (int)shape->Perimeter() << "; S=" << (int)shape->Area() << "\n";
+        fout << shape->GetType() << PERIMETER_LABEL << shape->Perimeter() << AREA_LABEL << shape->Area() << NEWLINE;
     }
 
-    std::cout << "Результаты записаны в output.txt\n";
+    std::cout << RESULTS_WRITTEN;
 }
