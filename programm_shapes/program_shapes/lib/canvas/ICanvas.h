@@ -1,13 +1,14 @@
 #pragma once
-#include "../tools/Point.h"
+#include "../tools/ShapesStruct.h"
+
 
 
 class ICanvas
 {
 public:
-    virtual void drawCircle(Point centerCircle, int radius) = 0;
-    virtual void drawRectangle(Point leftTopCorner, int width, int	height) = 0;
-    virtual void drawTriangle(Point firstPoint, Point secondPoint, Point thirdPoint) = 0;
+    virtual void drawCircle(Circle circ) = 0;
+    virtual void drawRectangle(Rectangle rect) = 0;
+    virtual void drawTriangle(Triangle triang) = 0;
 private:
 
 };

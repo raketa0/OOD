@@ -1,8 +1,7 @@
 #pragma once
 #include "IShape.h"
-#include "../tools/Point.h"
 #include "../canvas/ICanvas.h"
-#include <memory>
+#include "../tools/ShapesStruct.h"
 
 
 const double PI = 3.14159265358979323846;
@@ -11,13 +10,12 @@ const double PI = 3.14159265358979323846;
 class CircleAdapter : public IShape
 {
 public:
-	CircleAdapter(int cx, int cy, int r);
+	CircleAdapter(Circle circle);
 	double Perimeter() override;
 	double Area() override;
 	void DrawShape(ICanvas& canvas) override;
 
 private:
-	Point centerCircle;
-	int radius;
+	Circle m_circle;
 };
 

@@ -1,20 +1,21 @@
 #include "CircleAdapter.h"
-#include <math.h>
-CircleAdapter::CircleAdapter(int cx, int cy, int r):
-	centerCircle{ cx, cy }, radius(r) 
+
+
+CircleAdapter::CircleAdapter(Circle circle):
+	m_circle(circle)
 {}
 
 double CircleAdapter::Perimeter()
 {
-	return 2 * PI * radius;
+	return 2 * PI * m_circle.radius;
 }
 
 double CircleAdapter::Area()
 {
-	return PI * radius * radius;
+	return PI * m_circle.radius * m_circle.radius;
 }
 
 void CircleAdapter::DrawShape(ICanvas& canvas)
 {
-	canvas.drawCircle(centerCircle, radius);
+	canvas.drawCircle(m_circle);
 }

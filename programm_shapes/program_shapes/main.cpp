@@ -1,32 +1,38 @@
 #include <SFML/Graphics.hpp>
-#include "lib/shapes/CircleAdapter.h"
+#include <iostream>
+#include <optional>
+
+#include "lib/shapes/CPicture.h"
 #include "lib/canvas/CCanvas.h"
 
 int main()
 {
-    CircleAdapter circ(350, 350, 50);
+    setlocale(LC_ALL, "ru");
 
-    sf::RenderWindow window(sf::VideoMode({ 600, 600 }), "SFML Shapes App");
-    CCanvas canv(window);
+    CPicture picture;
 
+    picture.LoadFromFile("input.txt");
+
+    sf::RenderWindow window(sf::VideoMode({ 800, 600 }), "Shapes Visualization");
+    window.clear(sf::Color::White);
+    CCanvas canvas(window);
 
     while (window.isOpen())
     {
         while (const std::optional event = window.pollEvent())
         {
             if (event->is<sf::Event::Closed>())
-
                 window.close();
         }
 
         window.clear(sf::Color::Black);
-        circ.DrawShape(canv);
 
+        picture.DrawPicture(canvas);
 
         window.display();
     }
 
+    picture.OutCharacteristics();
 
-
-
+    return 0;
 }

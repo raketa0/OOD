@@ -1,13 +1,13 @@
 #include "TriangleAdapter.h"
 
-TriangleAdapter::TriangleAdapter(int x1, int y1, int x2, int y2, int x3, int y3):
-	firstPoint{ x1, y1 }, secondPoint{ x2, y2 }, thirdPoint{ x3, y3 }{}
+TriangleAdapter::TriangleAdapter(Triangle triangle):
+	m_triangle(triangle){}
 
 double TriangleAdapter::Perimeter()
 {
-	return Distation(firstPoint, secondPoint) + 
-		   Distation(firstPoint, thirdPoint) +
-		   Distation(secondPoint, thirdPoint);
+	return Distation(m_triangle.firstPoint, m_triangle.secondPoint) +
+		   Distation(m_triangle.firstPoint, m_triangle.thirdPoint) +
+		   Distation(m_triangle.secondPoint, m_triangle.thirdPoint);
 }
 
 double TriangleAdapter::Area()
@@ -15,12 +15,13 @@ double TriangleAdapter::Area()
     double halfPerimeter = Perimeter() / 2;
     return std::sqrt(
         halfPerimeter *
-        (halfPerimeter - Distation(firstPoint, secondPoint)) *
-        (halfPerimeter - Distation(firstPoint, thirdPoint)) *
-        (halfPerimeter - Distation(secondPoint, thirdPoint))
+        (halfPerimeter - Distation(m_triangle.firstPoint, m_triangle.secondPoint)) *
+        (halfPerimeter - Distation(m_triangle.firstPoint, m_triangle.thirdPoint)) *
+        (halfPerimeter - Distation(m_triangle.secondPoint, m_triangle.thirdPoint))
     );
 }
 
 void TriangleAdapter::DrawShape(ICanvas& canvas)
 {
+    canvas.drawTriangle(m_triangle);
 }

@@ -6,6 +6,10 @@
 #include <iostream>
 #include <string>
 #include <memory>
+#include <sstream>
+#include "../tools/Parser.cpp"
+#include "../tools/ShapesStruct.h"
+
 
 void CPicture::AddShape(std::unique_ptr<IShape> shape)
 {
@@ -23,43 +27,56 @@ void CPicture::DrawPicture(ICanvas& canvas)
 void CPicture::LoadFromFile(const std::string& filename)
 {
     std::ifstream fin(filename);
-    if (!fin.is_open()) {
-        std::cerr << "Не удалось открыть файл " << filename << std::endl;
+    if (!fin.is_open()) 
+    {
+        std::cout << "Не удалось открыть " << filename << std::endl;
         return;
     }
 
-    std::string type;
-    while (fin >> type) {
-        if (type == "CIRCLE:") {
-            char c_eq, r_eq, comma, semicolon;
-            int cx, cy, r;
-            fin >> c_eq >> cx >> comma >> cy >> semicolon >> r_eq >> r;
-            AddShape(std::make_unique<CircleAdapter>(cx, cy, r));
+    std::string line;
+    while (std::getline(fin, line)) 
+    {
+        if (line.empty()) continue;
+
+        std::stringstream ss(line);
+        std::string type;
+        ss >> type;
+
+        Shape enumType = StrTypeInEnum(type);
+
+        switch (enumType)
+        {
+        case CIRCLE:
+        {
+            auto circle = ParserCircle(line);
+            AddShape(std::make_unique<CircleAdapter>(circle));
+            break;
         }
-        else if (type == "RECTANGLE:") {
-            char p1_eq, p2_eq, comma1, comma2, semicolon1, semicolon2;
-            int x1, y1, x2, y2;
-            fin >> p1_eq >> x1 >> comma1 >> y1 >> semicolon1
-                >> p2_eq >> x2 >> comma2 >> y2 >> semicolon2;
-            AddShape(std::make_unique<RectangleAdapter>(x1, y1, x2, y2));
+        case RECTANGLE:
+        {
+            auto rectange = ParserRectangle(line);
+            AddShape(std::make_unique<RectangleAdapter>(rectange));
+            break;
         }
-        else if (type == "TRIANGLE:") {
-            char p1_eq, p2_eq, p3_eq;
-            char comma1, comma2, comma3;
-            char semicolon1, semicolon2;
-            int x1, y1, x2, y2, x3, y3;
-            fin >> p1_eq >> x1 >> comma1 >> y1 >> semicolon1
-                >> p2_eq >> x2 >> comma2 >> y2 >> semicolon2
-                >> p3_eq >> x3 >> comma3 >> y3;
-            AddShape(std::make_unique<TriangleAdapter>(x1, y1, x2, y2, x3, y3));
+        case TRIANGLE:
+        {
+            auto triangle = ParserTriangle(line);
+            AddShape(std::make_unique<TriangleAdapter>(triangle));
+            break;
+        }
+        default:
+            break;
         }
     }
+
+    fin.close();
 }
 
 void CPicture::OutCharacteristics()
 {
     std::ofstream fout("output.txt");
-    if (!fout.is_open()) {
+    if (!fout.is_open())
+    {
         std::cerr << "Ошибка открытия output.txt" << std::endl;
         return;
     }
