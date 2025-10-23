@@ -2,15 +2,12 @@
 #include "../tools/ShapesStruct.h"
 #include <SFML/Graphics.hpp>
 
-
 class ICanvas
 {
 public:
-    virtual void drawCircle(Circle circ) = 0;
-    virtual void drawRectangle(Rectangle rect) = 0;
-    virtual void drawTriangle(Triangle triang) = 0;
-private:
-
+    virtual void drawCircle(Point centerCircle, int radius) = 0;
+    virtual void drawRectangle(Point leftTopCorner, int width, int height) = 0;
+    virtual void drawTriangle(Point firstPoint, Point secondPoint, Point thirdPoint) = 0;
 };
 
 

@@ -1,9 +1,7 @@
 #include "Parser.h"
 #include "Constants.h"
 
-
-
-Shape StrTypeInEnum(std::string type)
+Shape Parser::StrTypeInEnum(const std::string& type)
 {
     if (type == CIRCLE_TYPE)
     {
@@ -23,12 +21,9 @@ Shape StrTypeInEnum(std::string type)
     }
 }
 
-Circle ParserCircle(std::string line)
+void Parser::ParserCircle(const std::string& line, Point& centerCircle, int& radius)
 {
-    Circle circle;
     char ch;
-    char chSecond;
-
     std::stringstream ss(line);
     while (ss >> ch)
     {
@@ -37,28 +32,26 @@ Circle ParserCircle(std::string line)
             ss >> ch;
             if (ch == EQUAL_SIGN)
             {
-                ss >> circle.centerCircle.x;
+                ss >> centerCircle.x;
             }
         }
         if (ch == COMMA_CHAR)
         {
-            ss >> circle.centerCircle.y;
+            ss >> centerCircle.y;
         }
         if (ch == RADIUS_PREFIX)
         {
             ss >> ch;
             if (ch == EQUAL_SIGN)
             {
-                ss >> circle.radius;
+                ss >> radius;
             }
         }
     }
-    return circle;
 }
 
-Rectangle ParserRectangle(std::string line)
+void Parser::ParserRectangle(const std::string& line, Point& leftTopCorner, int& width, int& height)
 {
-    Rectangle rectangle;
     char ch;
     int countFirst = ZERO;
     int countSecond = ZERO;
@@ -92,17 +85,14 @@ Rectangle ParserRectangle(std::string line)
             countSecond++;
         }
     }
-    rectangle.leftTopCorner.x = std::min(x1, x2);
-    rectangle.leftTopCorner.y = std::min(y1, y2);
-    rectangle.width = std::abs(x2 - x1);
-    rectangle.height = std::abs(y2 - y1);
-
-    return rectangle;
+    leftTopCorner.x = std::min(x1, x2);
+    leftTopCorner.y = std::min(y1, y2);
+    width = std::abs(x2 - x1);
+    height = std::abs(y2 - y1);
 }
 
-Triangle ParserTriangle(std::string line)
+void Parser::ParserTriangle(const std::string& line, Point& firstPoint, Point& secondPoint, Point& thirdPoint)
 {
-    Triangle triangle;
     char ch;
     std::stringstream ss(line);
 
@@ -121,12 +111,10 @@ Triangle ParserTriangle(std::string line)
         }
     }
 
-    triangle.firstPoint.x = nums[FIRST_X_INDEX];
-    triangle.firstPoint.y = nums[FIRST_Y_INDEX];
-    triangle.secondPoint.x = nums[SECOND_X_INDEX];
-    triangle.secondPoint.y = nums[SECOND_Y_INDEX];
-    triangle.thirdPoint.x = nums[THIRD_X_INDEX];
-    triangle.thirdPoint.y = nums[THIRD_Y_INDEX];
-
-    return triangle;
+    firstPoint.x = nums[FIRST_X_INDEX];
+    firstPoint.y = nums[FIRST_Y_INDEX];
+    secondPoint.x = nums[SECOND_X_INDEX];
+    secondPoint.y = nums[SECOND_Y_INDEX];
+    thirdPoint.x = nums[THIRD_X_INDEX];
+    thirdPoint.y = nums[THIRD_Y_INDEX];
 }

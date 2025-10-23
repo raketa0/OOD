@@ -9,13 +9,15 @@
 class CircleAdapter : public IShape
 {
 public:
-	CircleAdapter(Circle circle);
+	CircleAdapter(Point centerCircle, int radius, std::string type = CIRCLE_TYPE);
 	double Perimeter() override;
 	double Area() override;
 	void DrawShape(ICanvas& canvas) override;
 	std::string GetType() override;
 private:
-	Circle m_circle;
+	Point m_centerCircle;
+	int m_radius;
+	std::string m_type = CIRCLE_TYPE;
 
 };
 
