@@ -1,10 +1,10 @@
 #pragma once
-#include "ICanvas.h"
+#include "ICanvasSFML.h"
 
-class CCanvas : public ICanvas
+class CCanvasSFML : public ICanvasSFML
 {
 public:
-	CCanvas(sf::RenderWindow& window);
+	CCanvasSFML(sf::RenderWindow& window);
 	void drawCircle(Point centerCircle, int radius) override;
 	void drawRectangle(Point leftTopCorner, int width, int height) override;
 	void drawTriangle(Point firstPoint, Point secondPoint, Point thirdPoint) override;

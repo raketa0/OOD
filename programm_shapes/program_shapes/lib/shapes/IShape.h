@@ -1,5 +1,5 @@
 #pragma once
-#include "../canvas/ICanvas.h"
+#include "../canvas/ICanvasSFML.h"
 
 
 class IShape

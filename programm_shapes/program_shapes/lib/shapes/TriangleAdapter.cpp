@@ -3,7 +3,7 @@
 
 TriangleAdapter::TriangleAdapter(Point firstPoint, Point secondPoint,
 	Point thirdPoint, std::string type,
-	std::shared_ptr<ICanvas> canvas) :
+	std::shared_ptr<ICanvasSFML> canvas) :
 	m_firstPoint(firstPoint),
 	m_secondPoint(secondPoint),
 	m_thirdPoint(thirdPoint),
