@@ -1,11 +1,17 @@
 #include "RectangleAdapter.h"
+#include <cassert>
 
-RectangleAdapter::RectangleAdapter(Point leftTopCorner, int width, int height, std::string type):
+RectangleAdapter::RectangleAdapter(Point leftTopCorner, int width,
+	int height, std::string type,
+	std::shared_ptr<ICanvas> canvas):
 	m_leftTopCorner(leftTopCorner),
 	m_width(width),
 	m_height(height),
-	m_type(type)
-{}
+	m_type(type),
+	m_canvas(std::move(canvas))
+{
+	assert(m_canvas);
+}
 
 double RectangleAdapter::Perimeter()
 {
@@ -17,9 +23,9 @@ double RectangleAdapter::Area()
 	return double(m_width) * double(m_height);
 }
 
-void RectangleAdapter::DrawShape(ICanvas& canvas)
+void RectangleAdapter::DrawShape()
 {
-	canvas.drawRectangle(m_leftTopCorner, m_width, m_height);
+	m_canvas->drawRectangle(m_leftTopCorner, m_width, m_height);
 }
 
 std::string RectangleAdapter::GetType()

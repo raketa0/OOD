@@ -1,10 +1,17 @@
 #include "TriangleAdapter.h"
+#include <cassert>
 
-TriangleAdapter::TriangleAdapter(Point firstPoint, Point secondPoint, Point thirdPoint, std::string type):
+TriangleAdapter::TriangleAdapter(Point firstPoint, Point secondPoint,
+	Point thirdPoint, std::string type,
+	std::shared_ptr<ICanvas> canvas) :
 	m_firstPoint(firstPoint),
 	m_secondPoint(secondPoint),
 	m_thirdPoint(thirdPoint),
-	m_type(type) {}
+	m_type(type),
+	m_canvas(std::move(canvas))
+{
+	assert(m_canvas);
+}
 
 double TriangleAdapter::Perimeter()
 {
@@ -24,9 +31,9 @@ double TriangleAdapter::Area()
     );
 }
 
-void TriangleAdapter::DrawShape(ICanvas& canvas)
+void TriangleAdapter::DrawShape()
 {
-    canvas.drawTriangle(m_firstPoint, m_secondPoint, m_thirdPoint);
+	m_canvas->drawTriangle(m_firstPoint, m_secondPoint, m_thirdPoint);
 }
 
 std::string TriangleAdapter::GetType()

@@ -6,17 +6,23 @@
 #include <sstream>
 #include <memory>
 #include <string>
+#include <cassert>
+
+CPicture::CPicture(std::shared_ptr<ICanvas> canvas): m_canvas(std::move(canvas))
+{
+    assert(m_canvas);
+}
 
 void CPicture::AddShape(std::unique_ptr<IShape> shape)
 {
 	m_shapes.push_back(std::move(shape));
 }
 
-void CPicture::DrawPicture(ICanvas& canvas)
+void CPicture::DrawPicture()
 {
 	for (auto& shape : m_shapes)
 	{
-		shape->DrawShape(canvas);
+		shape->DrawShape();
 	}
 }
 
@@ -49,7 +55,7 @@ void CPicture::LoadFromFile(const std::string& filename)
             std::string type = CIRCLE_TYPE;
 
             parser.ParserCircle(line, centerCircle, radius);
-            AddShape(std::make_unique<CircleAdapter>(centerCircle, radius, type));
+            AddShape(std::make_unique<CircleAdapter>(centerCircle, radius, type, m_canvas));
             break;
         }
         case RECTANGLE:
@@ -60,7 +66,7 @@ void CPicture::LoadFromFile(const std::string& filename)
             std::string type = RECTANGLE_TYPE;
 
             parser.ParserRectangle(line, leftTop, width, height);
-            AddShape(std::make_unique<RectangleAdapter>(leftTop, width, height, type));
+            AddShape(std::make_unique<RectangleAdapter>(leftTop, width, height, type, m_canvas));
             break;
         }
         case TRIANGLE:
@@ -69,7 +75,7 @@ void CPicture::LoadFromFile(const std::string& filename)
             std::string type = TRIANGLE_TYPE;
 
             parser.ParserTriangle(line, p1, p2, p3);
-            AddShape(std::make_unique<TriangleAdapter>(p1, p2, p3, type));
+            AddShape(std::make_unique<TriangleAdapter>(p1, p2, p3, type, m_canvas));
             break;
         }
         default:

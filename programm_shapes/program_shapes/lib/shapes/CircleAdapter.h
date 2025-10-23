@@ -3,21 +3,23 @@
 #include "../canvas/ICanvas.h"
 #include "../tools/ShapesStruct.h"
 #include "../tools/Constants.h"
-
-
+#include <memory>
+#include <string>
 
 class CircleAdapter : public IShape
 {
 public:
-	CircleAdapter(Point centerCircle, int radius, std::string type = CIRCLE_TYPE);
+	CircleAdapter(Point centerCircle, int radius,
+		std::string type = CIRCLE_TYPE,
+		std::shared_ptr<ICanvas> canvas = nullptr);
 	double Perimeter() override;
 	double Area() override;
-	void DrawShape(ICanvas& canvas) override;
+	void DrawShape() override;
 	std::string GetType() override;
 private:
 	Point m_centerCircle;
 	int m_radius;
 	std::string m_type = CIRCLE_TYPE;
-
+	std::shared_ptr<ICanvas> m_canvas;
 };
 
