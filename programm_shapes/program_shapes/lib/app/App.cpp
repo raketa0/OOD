@@ -4,7 +4,7 @@
 
 #include "App.h"
 #include "../shapes/CPicture.h"
-#include "../canvas/CCanvas.h"
+#include "../canvas/CCanvasSFML.h"
 #include "../tools/Constants.h"
 
 void run()
@@ -14,10 +14,8 @@ void run()
     sf::RenderWindow window(sf::VideoMode({ WINDOW_WIDTH, WINDOW_HEIGHT }), WINDOW_TITLE);
     window.clear(sf::Color::White);
 
-    // create shared canvas
-    auto canvas = std::make_shared<CCanvas>(window);
+    auto canvas = std::make_shared<CCanvasSFML>(window);
 
-    // pass shared_ptr into CPicture
     CPicture picture(canvas);
 
     picture.LoadFromFile(INPUT_FILE);

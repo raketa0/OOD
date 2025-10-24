@@ -3,7 +3,7 @@
 
 RectangleAdapter::RectangleAdapter(Point leftTopCorner, int width,
 	int height, std::string type,
-	std::shared_ptr<ICanvas> canvas):
+	std::shared_ptr<ICanvasSFML> canvas):
 	m_leftTopCorner(leftTopCorner),
 	m_width(width),
 	m_height(height),

@@ -1,9 +1,9 @@
-#include "CCanvas.h"
+#include "CCanvasSFML.h"
 
 
-CCanvas::CCanvas(sf::RenderWindow& window): m_window(window) {}
+CCanvasSFML::CCanvasSFML(sf::RenderWindow& window): m_window(window) {}
 
-void CCanvas::drawCircle(Point centerCircle, int radius)
+void CCanvasSFML::drawCircle(Point centerCircle, int radius)
 {
 	sf::CircleShape circle(radius);
 	circle.setPosition(sf::Vector2f(centerCircle.x - radius, centerCircle.y - radius));
@@ -13,7 +13,7 @@ void CCanvas::drawCircle(Point centerCircle, int radius)
 	m_window.draw(circle);
 }
 
-void CCanvas::drawRectangle(Point leftTopCorner, int width, int height)
+void CCanvasSFML::drawRectangle(Point leftTopCorner, int width, int height)
 {
     sf::RectangleShape rectangle(sf::Vector2f(width, height));
     rectangle.setPosition(sf::Vector2f(leftTopCorner.x, leftTopCorner.y));
@@ -23,7 +23,7 @@ void CCanvas::drawRectangle(Point leftTopCorner, int width, int height)
     m_window.draw(rectangle);
 }
 
-void CCanvas::drawTriangle(Point firstPoint, Point secondPoint, Point thirdPoint)
+void CCanvasSFML::drawTriangle(Point firstPoint, Point secondPoint, Point thirdPoint)
 {
     sf::ConvexShape triangle(3);
     triangle.setPoint(0, sf::Vector2f(firstPoint.x, firstPoint.y));
