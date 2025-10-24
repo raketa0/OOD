@@ -3,7 +3,7 @@
 #include <cassert>
 
 CircleAdapter::CircleAdapter(Point centerCircle, int radius,
-	std::string type, std::shared_ptr<ICanvas> canvas) :
+	std::string type, std::shared_ptr<ICanvasSFML> canvas) :
 	m_centerCircle(centerCircle),
 	m_radius(radius),
 	m_type(type),

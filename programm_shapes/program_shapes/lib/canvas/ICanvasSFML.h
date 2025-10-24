@@ -2,7 +2,7 @@
 #include "../tools/ShapesStruct.h"
 #include <SFML/Graphics.hpp>
 
-class ICanvas
+class ICanvasSFML
 {
 public:
     virtual void drawCircle(Point centerCircle, int radius) = 0;

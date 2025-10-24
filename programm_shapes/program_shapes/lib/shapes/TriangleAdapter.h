@@ -1,6 +1,6 @@
 #pragma once
 #include "IShape.h"
-#include "../canvas/ICanvas.h"
+#include "../canvas/ICanvasSFML.h"
 #include <cmath>
 #include "../tools/ShapesStruct.h"
 #include <memory>
@@ -13,7 +13,7 @@ public:
 		Point secondPoint,
 		Point thirdPoint,
 		std::string type = TRIANGLE_TYPE,
-		std::shared_ptr<ICanvas> canvas = nullptr);
+		std::shared_ptr<ICanvasSFML> canvas = nullptr);
 
 	double Perimeter() override;
 	double Area() override;
@@ -25,7 +25,7 @@ private:
 	Point m_secondPoint;
 	Point m_thirdPoint;
 	std::string m_type;
-	std::shared_ptr<ICanvas> m_canvas;
+	std::shared_ptr<ICanvasSFML> m_canvas;
 
 	double Distation(const Point& firstPoint, const Point& secondPoint)
 	{

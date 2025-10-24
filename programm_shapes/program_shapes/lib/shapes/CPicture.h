@@ -17,12 +17,12 @@
 class CPicture
 {
 public:
-	CPicture(std::shared_ptr<ICanvas> canvas);
+	CPicture(std::shared_ptr<ICanvasSFML> canvas);
 	void AddShape(std::unique_ptr<IShape> shape);
 	void DrawPicture();
 	void LoadFromFile(const std::string& filename);
 	void OutCharacteristics();
 private:
 	std::vector<std::unique_ptr<IShape>> m_shapes;
-	std::shared_ptr<ICanvas> m_canvas;
+	std::shared_ptr<ICanvasSFML> m_canvas;
 };

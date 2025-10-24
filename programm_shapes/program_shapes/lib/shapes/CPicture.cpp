@@ -8,7 +8,7 @@
 #include <string>
 #include <cassert>
 
-CPicture::CPicture(std::shared_ptr<ICanvas> canvas): m_canvas(std::move(canvas))
+CPicture::CPicture(std::shared_ptr<ICanvasSFML> canvas): m_canvas(std::move(canvas))
 {
     assert(m_canvas);
 }
