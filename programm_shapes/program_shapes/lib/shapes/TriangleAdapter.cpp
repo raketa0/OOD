@@ -40,3 +40,4 @@ std::string TriangleAdapter::GetType()
 {
     return m_type;
 }
+

@@ -37,3 +37,4 @@ const char RADIUS_PREFIX = 'R';
 const char EQUAL_SIGN = '=';
 const char COMMA_CHAR = ',';
 const char LOCALE_RU[3] = "ru";
+const char SPACE_CHAR = ' ';

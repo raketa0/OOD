@@ -9,13 +9,16 @@
 class CircleAdapter : public IShape
 {
 public:
-	CircleAdapter(Point centerCircle, int radius,
+	CircleAdapter(Point centerCircle, int radius, 
 		std::string type = CIRCLE_TYPE,
 		std::shared_ptr<ICanvasSFML> canvas = nullptr);
+
 	double Perimeter() override;
 	double Area() override;
 	void Draw() override;
 	std::string GetType() override;
+	Point GetCenterCircle();
+	int GetRadius();
 private:
 	Point m_centerCircle;
 	int m_radius;

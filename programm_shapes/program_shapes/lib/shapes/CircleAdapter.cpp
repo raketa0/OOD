@@ -31,3 +31,14 @@ std::string CircleAdapter::GetType()
 {
 	return m_type;
 }
+
+Point CircleAdapter::GetCenterCircle()
+{
+	return m_centerCircle;
+}
+
+int CircleAdapter::GetRadius()
+{
+	return m_radius;
+}
+

@@ -11,6 +11,7 @@ public:
 	RectangleAdapter(Point leftTopCorner, int width,
 		int height, std::string type = RECTANGLE_TYPE,
 		std::shared_ptr<ICanvasSFML> canvas = nullptr);
+
 	double Perimeter() override;
 	double Area() override;
 	void Draw() override;

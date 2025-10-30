@@ -8,7 +8,9 @@
 #include <string>
 #include <cassert>
 
-C—ompositionShapes::C—ompositionShapes(std::shared_ptr<ICanvasSFML> canvas) : m_canvas(std::move(canvas))
+C—ompositionShapes::C—ompositionShapes(std::shared_ptr<ICanvasSFML> canvas, int curentShapeId) 
+    : m_canvas(std::move(canvas)),
+	m_curentShapeId(curentShapeId)
 {
     assert(m_canvas);
 }
@@ -16,7 +18,7 @@ C—ompositionShapes::C—ompositionShapes(std::shared_ptr<ICanvasSFML> canvas) : m_
 double C—ompositionShapes::Perimeter()
 {
     double total = 0;
-    for (auto& shape : m_shapes)
+    for (auto& [id, shape] : m_shapes)
         total += shape->Perimeter();
     return total;
 }
@@ -24,7 +26,7 @@ double C—ompositionShapes::Perimeter()
 double C—ompositionShapes::Area()
 {
     double total = 0;
-    for (auto& shape : m_shapes)
+    for (auto& [id, shape] : m_shapes)
         total += shape->Area();
     return total;
 }
@@ -34,14 +36,16 @@ std::string C—ompositionShapes::GetType()
     return std::string("—omposition Shapes");
 }
 
-void C—ompositionShapes::AddShape(std::unique_ptr<IShape> shape)
+
+void C—ompositionShapes::AddShape(std::shared_ptr<IShape> shape)
 {
-    m_shapes.push_back(std::move(shape));
+    int id = ++m_curentShapeId;
+    m_shapes[id] = std::move(shape);
 }
 
 void C—ompositionShapes::Draw()
 {
-    for (auto& shape : m_shapes)
+    for (auto& [id, shape] : m_shapes)
     {
         shape->Draw();
     }
@@ -76,7 +80,7 @@ void C—ompositionShapes::LoadFromFile(const std::string& filename)
             std::string type = CIRCLE_TYPE;
 
             parser.ParserCircle(line, centerCircle, radius);
-            AddShape(std::make_unique<CircleAdapter>(centerCircle, radius, type, m_canvas));
+            AddShape(std::make_shared<CircleAdapter>(centerCircle, radius, type, m_canvas));
             break;
         }
         case RECTANGLE:
@@ -87,7 +91,7 @@ void C—ompositionShapes::LoadFromFile(const std::string& filename)
             std::string type = RECTANGLE_TYPE;
 
             parser.ParserRectangle(line, leftTop, width, height);
-            AddShape(std::make_unique<RectangleAdapter>(leftTop, width, height, type, m_canvas));
+            AddShape(std::make_shared<RectangleAdapter>(leftTop, width, height, type, m_canvas));
             break;
         }
         case TRIANGLE:
@@ -96,7 +100,7 @@ void C—ompositionShapes::LoadFromFile(const std::string& filename)
             std::string type = TRIANGLE_TYPE;
 
             parser.ParserTriangle(line, p1, p2, p3);
-            AddShape(std::make_unique<TriangleAdapter>(p1, p2, p3, type, m_canvas));
+            AddShape(std::make_shared<TriangleAdapter>(p1, p2, p3, type, m_canvas));
             break;
         }
         default:
@@ -116,10 +120,27 @@ void C—ompositionShapes::OutCharacteristics()
         return;
     }
 
-    for (auto& shape : m_shapes)
+    for (auto& [id, shape] : m_shapes)
     {
-        fout << shape->GetType() << PERIMETER_LABEL << shape->Perimeter() << AREA_LABEL << shape->Area() << NEWLINE;
+        fout << id << SPACE_CHAR << shape->GetType() << PERIMETER_LABEL << shape->Perimeter() << AREA_LABEL << shape->Area() << NEWLINE;
     }
 
     std::cout << RESULTS_WRITTEN;
+}
+
+std::map<int, std::shared_ptr<IShape>> C—ompositionShapes::Get—ompositionShapes()
+{
+    return m_shapes;
+}
+
+std::shared_ptr<IShape> C—ompositionShapes::FindShapeById(int id)
+{
+    for (auto& pair : m_shapes)
+    {
+        if (pair.first == id)
+        {
+            return pair.second;
+        }
+    }
+    return nullptr;
 }

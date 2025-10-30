@@ -33,3 +33,4 @@ std::string RectangleAdapter::GetType()
 	return m_type;
 }
 
+
