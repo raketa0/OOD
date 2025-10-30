@@ -3,7 +3,7 @@
 #include <memory>
 
 #include "App.h"
-#include "../shapes/CPicture.h"
+#include "../shapes/CÑompositionShapes.h"
 #include "../canvas/CCanvasSFML.h"
 #include "../tools/Constants.h"
 
@@ -16,7 +16,7 @@ void run()
 
     auto canvas = std::make_shared<CCanvasSFML>(window);
 
-    CPicture picture(canvas);
+    CÑompositionShapes picture(canvas);
 
     picture.LoadFromFile(INPUT_FILE);
     picture.OutCharacteristics();
@@ -31,7 +31,7 @@ void run()
 
         window.clear(sf::Color::Black);
 
-        picture.DrawPicture();
+        picture.Draw();
 
         window.display();
     }

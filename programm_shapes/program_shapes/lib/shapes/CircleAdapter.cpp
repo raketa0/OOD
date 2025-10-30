@@ -22,7 +22,7 @@ double CircleAdapter::Area()
 	return PI * m_radius * m_radius;
 }
 
-void CircleAdapter::DrawShape()
+void CircleAdapter::Draw()
 {
 	m_canvas->drawCircle(m_centerCircle, m_radius);
 }

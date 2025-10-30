@@ -23,7 +23,7 @@ double RectangleAdapter::Area()
 	return double(m_width) * double(m_height);
 }
 
-void RectangleAdapter::DrawShape()
+void RectangleAdapter::Draw()
 {
 	m_canvas->drawRectangle(m_leftTopCorner, m_width, m_height);
 }

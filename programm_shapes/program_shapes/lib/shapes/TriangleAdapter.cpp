@@ -31,7 +31,7 @@ double TriangleAdapter::Area()
     );
 }
 
-void TriangleAdapter::DrawShape()
+void TriangleAdapter::Draw()
 {
 	m_canvas->drawTriangle(m_firstPoint, m_secondPoint, m_thirdPoint);
 }

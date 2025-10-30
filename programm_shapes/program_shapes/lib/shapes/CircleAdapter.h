@@ -14,7 +14,7 @@ public:
 		std::shared_ptr<ICanvasSFML> canvas = nullptr);
 	double Perimeter() override;
 	double Area() override;
-	void DrawShape() override;
+	void Draw() override;
 	std::string GetType() override;
 private:
 	Point m_centerCircle;

@@ -1,4 +1,4 @@
-#include "CPicture.h"
+#include "CÑompositionShapes.h"
 #include "../tools/Constants.h"
 #include "../tools/Parser.h"
 #include <fstream>
@@ -8,49 +8,70 @@
 #include <string>
 #include <cassert>
 
-CPicture::CPicture(std::shared_ptr<ICanvasSFML> canvas): m_canvas(std::move(canvas))
+CÑompositionShapes::CÑompositionShapes(std::shared_ptr<ICanvasSFML> canvas) : m_canvas(std::move(canvas))
 {
     assert(m_canvas);
 }
 
-void CPicture::AddShape(std::unique_ptr<IShape> shape)
+double CÑompositionShapes::Perimeter()
 {
-	m_shapes.push_back(std::move(shape));
+    double total = 0;
+    for (auto& shape : m_shapes)
+        total += shape->Perimeter();
+    return total;
 }
 
-void CPicture::Draw()
+double CÑompositionShapes::Area()
 {
-	for (auto& shape : m_shapes)
-	{
-		shape->Draw();
-	}
+    double total = 0;
+    for (auto& shape : m_shapes)
+        total += shape->Area();
+    return total;
 }
 
-void CPicture::LoadFromFile(const std::string& filename)
+std::string CÑompositionShapes::GetType()
+{
+    return std::string("Ñomposition Shapes");
+}
+
+void CÑompositionShapes::AddShape(std::unique_ptr<IShape> shape)
+{
+    m_shapes.push_back(std::move(shape));
+}
+
+void CÑompositionShapes::Draw()
+{
+    for (auto& shape : m_shapes)
+    {
+        shape->Draw();
+    }
+}
+
+void CÑompositionShapes::LoadFromFile(const std::string& filename)
 {
     std::ifstream fin(filename);
-    if (!fin.is_open()) 
+    if (!fin.is_open())
     {
         std::cout << ERROR_OPENING_FILE << filename << std::endl;
         return;
     }
 
     std::string line;
-    while (std::getline(fin, line)) 
+    while (std::getline(fin, line))
     {
         if (line.empty()) continue;
 
         std::stringstream ss(line);
         std::string typeStr;
         ss >> typeStr;
-		Parser parser;
+        Parser parser;
         Shape enumType = parser.StrTypeInEnum(typeStr);
 
         switch (enumType)
         {
         case CIRCLE:
         {
-            Point centerCircle{0, 0};
+            Point centerCircle{ 0, 0 };
             int radius = 0;
             std::string type = CIRCLE_TYPE;
 
@@ -60,7 +81,7 @@ void CPicture::LoadFromFile(const std::string& filename)
         }
         case RECTANGLE:
         {
-            Point leftTop{0,0};
+            Point leftTop{ 0,0 };
             int width = 0;
             int height = 0;
             std::string type = RECTANGLE_TYPE;
@@ -71,7 +92,7 @@ void CPicture::LoadFromFile(const std::string& filename)
         }
         case TRIANGLE:
         {
-            Point p1{0,0}, p2{0,0}, p3{0,0};
+            Point p1{ 0,0 }, p2{ 0,0 }, p3{ 0,0 };
             std::string type = TRIANGLE_TYPE;
 
             parser.ParserTriangle(line, p1, p2, p3);
@@ -86,7 +107,7 @@ void CPicture::LoadFromFile(const std::string& filename)
     fin.close();
 }
 
-void CPicture::OutCharacteristics()
+void CÑompositionShapes::OutCharacteristics()
 {
     std::ofstream fout(OUTPUT_FILE);
     if (!fout.is_open())
