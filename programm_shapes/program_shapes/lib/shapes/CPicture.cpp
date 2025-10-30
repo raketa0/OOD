@@ -18,11 +18,11 @@ void CPicture::AddShape(std::unique_ptr<IShape> shape)
 	m_shapes.push_back(std::move(shape));
 }
 
-void CPicture::DrawPicture()
+void CPicture::Draw()
 {
 	for (auto& shape : m_shapes)
 	{
-		shape->DrawShape();
+		shape->Draw();
 	}
 }
 

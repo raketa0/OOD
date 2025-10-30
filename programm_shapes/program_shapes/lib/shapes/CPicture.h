@@ -14,12 +14,17 @@
 #include "../tools/ShapesStruct.h"
 
 
-class CPicture
+class CÑompositionShapes : public IShape
 {
 public:
-	CPicture(std::shared_ptr<ICanvasSFML> canvas);
+	CÑompositionShapes(std::shared_ptr<ICanvasSFML> canvas);
+
+	double Perimeter() override;
+	double Area() override;
+	std::string GetType() override;
+	void Draw() override;
+
 	void AddShape(std::unique_ptr<IShape> shape);
-	void DrawPicture();
 	void LoadFromFile(const std::string& filename);
 	void OutCharacteristics();
 private:
