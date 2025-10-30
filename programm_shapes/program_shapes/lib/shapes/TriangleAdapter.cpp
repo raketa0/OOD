@@ -33,7 +33,7 @@ double TriangleAdapter::Area()
 
 void TriangleAdapter::DrawShape()
 {
-	m_canvas->drawTriangle(m_firstPoint, m_secondPoint, m_thirdPoint);
+	m_canvas->DrawTriangle(m_firstPoint, m_secondPoint, m_thirdPoint);
 }
 
 std::string TriangleAdapter::GetType()

@@ -25,7 +25,7 @@ double RectangleAdapter::Area()
 
 void RectangleAdapter::DrawShape()
 {
-	m_canvas->drawRectangle(m_leftTopCorner, m_width, m_height);
+	m_canvas->DrawRectangle(m_leftTopCorner, m_width, m_height);
 }
 
 std::string RectangleAdapter::GetType()

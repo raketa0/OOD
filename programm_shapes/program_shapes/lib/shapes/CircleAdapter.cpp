@@ -24,7 +24,7 @@ double CircleAdapter::Area()
 
 void CircleAdapter::DrawShape()
 {
-	m_canvas->drawCircle(m_centerCircle, m_radius);
+	m_canvas->DrawCircle(m_centerCircle, m_radius);
 }
 
 std::string CircleAdapter::GetType()
