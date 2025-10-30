@@ -15,19 +15,26 @@ void CShapeSelector::DrawSelection(sf::RenderWindow& window)
 {
 }
 
-bool CShapeSelector::IsClickInsideShape(const sf::Vector2i& mousePos, std::shared_ptr<IShape> shape)
+bool CShapeSelector::IsClickInsideShape(const sf::Vector2i& mousePos)
 {
 	Parser parser;
-	Shape type = parser.StrTypeInEnum(shape->GetType());
-	switch (type)
+	for (auto& [id, shape] : m_composition->GetÑompositionShapes())
 	{
-		case CIRCLE:
-			break;
-		case RECTANGLE:
-			break;
-		case TRIANGLE:
-			break;
-	default:
-		break;
+		Shape type = parser.StrTypeInEnum(shape->GetType());
+		auto sh = m_composition->FindShapeById(id);
+			switch (type)
+			{
+				case CIRCLE:
+					CircleAdapter 
+					double dx = mousePos.x - sh->GetCenterCircle;
+					break;
+				case RECTANGLE:
+					break;
+				case TRIANGLE:
+					break;
+			default:
+				break;
+			}
 	}
+	
 }
