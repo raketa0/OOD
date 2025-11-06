@@ -1,13 +1,15 @@
 #pragma once
 #include "../canvas/ICanvasSFML.h"
+#include <string>
 
 
 class IShape
 {
 public:
-	virtual double Perimeter() = 0;
-	virtual double Area() = 0;
 	virtual void Draw() = 0;
-	virtual std::string GetType() = 0; 
+
+	virtual double Perimeter();
+	virtual double Area();
+	virtual std::string GetType();
 };
 

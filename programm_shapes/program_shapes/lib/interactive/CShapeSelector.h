@@ -2,7 +2,7 @@
 #include <memory>
 #include "../shapes/CÑompositionShapes.h"
 #include <SFML/Graphics.hpp>
-
+/*
 class CShapeSelector
 {
 public:
@@ -16,4 +16,4 @@ private:
 	bool IsClickInsideShape(const sf::Vector2i& mousePos);
 };
 
-
+*/

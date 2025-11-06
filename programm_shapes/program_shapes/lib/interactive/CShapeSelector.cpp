@@ -3,7 +3,7 @@
 
 //sf::Mouse::getPosition(window)
 
-
+/*
 CShapeSelector::CShapeSelector(std::shared_ptr<CÑompositionShapes> composition)
 	: m_composition(composition), m_selectedShape(nullptr){}
 
@@ -38,3 +38,4 @@ bool CShapeSelector::IsClickInsideShape(const sf::Vector2i& mousePos)
 	}
 	
 }
+*/

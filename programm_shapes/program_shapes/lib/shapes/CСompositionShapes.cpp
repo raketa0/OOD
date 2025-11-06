@@ -15,28 +15,6 @@ CÑompositionShapes::CÑompositionShapes(std::shared_ptr<ICanvasSFML> canvas, int 
     assert(m_canvas);
 }
 
-double CÑompositionShapes::Perimeter()
-{
-    double total = 0;
-    for (auto& [id, shape] : m_shapes)
-        total += shape->Perimeter();
-    return total;
-}
-
-double CÑompositionShapes::Area()
-{
-    double total = 0;
-    for (auto& [id, shape] : m_shapes)
-        total += shape->Area();
-    return total;
-}
-
-std::string CÑompositionShapes::GetType()
-{
-    return std::string("Ñomposition Shapes");
-}
-
-
 void CÑompositionShapes::AddShape(std::shared_ptr<IShape> shape)
 {
     int id = ++m_curentShapeId;

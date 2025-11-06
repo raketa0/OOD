@@ -14,15 +14,13 @@
 #include "../tools/ShapesStruct.h"
 #include <map>
 
+//ïåğåèìåíîâàòü
 
 class CÑompositionShapes : public IShape
 {
 public:
 	CÑompositionShapes(std::shared_ptr<ICanvasSFML> canvas, int curentShapeId = 0);
 
-	double Perimeter() override;
-	double Area() override;
-	std::string GetType() override;
 	void Draw() override;
 
 	void AddShape(std::shared_ptr<IShape> shape);
