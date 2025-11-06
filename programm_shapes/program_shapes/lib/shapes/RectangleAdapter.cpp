@@ -33,4 +33,21 @@ std::string RectangleAdapter::GetType()
 	return m_type;
 }
 
+bool RectangleAdapter::IsClick(const sf::Vector2i& mousePos)
+{
+	return (mousePos.x >= m_leftTopCorner.x &&
+		mousePos.x <= m_leftTopCorner.x + m_width &&
+		mousePos.y >= m_leftTopCorner.y &&
+		mousePos.y <= m_leftTopCorner.y + m_height);
+}
+
+FrameParameters RectangleAdapter::CalckSelectionFrameParameters()
+{
+	FrameParameters frameParams;
+	frameParams.topLeftCorner = m_leftTopCorner;
+	frameParams.width = m_width;
+	frameParams.height = m_height;
+	return frameParams;
+}
+
 

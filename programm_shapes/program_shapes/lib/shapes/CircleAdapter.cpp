@@ -32,13 +32,22 @@ std::string CircleAdapter::GetType()
 	return m_type;
 }
 
-Point CircleAdapter::GetCenterCircle()
+bool CircleAdapter::IsClick(const sf::Vector2i& mousePos)
 {
-	return m_centerCircle;
+	double dx = mousePos.x - m_centerCircle.x;
+	double dy = mousePos.y - m_centerCircle.y;
+	double distanceSquared = dx * dx + dy * dy;
+	
+	return distanceSquared <= m_radius * m_radius;
 }
 
-int CircleAdapter::GetRadius()
+FrameParameters CircleAdapter::CalckSelectionFrameParameters()
 {
-	return m_radius;
+	FrameParameters frameParams{};
+	frameParams.topLeftCorner.x = m_centerCircle.x - m_radius;
+	frameParams.topLeftCorner.y = m_centerCircle.y - m_radius;
+	frameParams.width = 2 * m_radius;
+	frameParams.height = 2 * m_radius;
+	return frameParams;
 }
 

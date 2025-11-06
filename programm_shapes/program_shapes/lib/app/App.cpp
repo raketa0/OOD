@@ -6,6 +6,7 @@
 #include "../shapes/CÑompositionShapes.h"
 #include "../canvas/CCanvasSFML.h"
 #include "../tools/Constants.h"
+#include "../interactive/CShapeSelector.h"
 
 void run()
 {
@@ -16,23 +17,33 @@ void run()
 
     auto canvas = std::make_shared<CCanvasSFML>(window);
 
-    CÑompositionShapes picture(canvas);
+    auto composition = std::make_shared<CÑompositionShapes>(canvas);
 
-    picture.LoadFromFile(INPUT_FILE);
-    picture.OutCharacteristics();
+    composition->LoadFromFile(INPUT_FILE);
+    composition->OutCharacteristics();
+
+    CShapeSelector selector(composition, canvas);
 
     while (window.isOpen())
     {
-        while (const std::optional event = window.pollEvent())
+        while (const auto event = window.pollEvent())
         {
             if (event->is<sf::Event::Closed>())
+            {
                 window.close();
+            }
+                
+            else if (event->is<sf::Event::MouseButtonPressed>())
+            {
+                sf::Vector2i mousePosition = sf::Mouse::getPosition(window);  // Ïîëó÷àåì ïîçèöèþ êëèêà
+                selector.OnClick(mousePosition);  // Ïðîâåðÿåì êëèê ïî ôèãóðàì, îáíîâëÿåì âûäåëåíèå
+            }
         }
 
         window.clear(sf::Color::Black);
 
-        picture.Draw();
-
+        composition->Draw();
+        selector.DrawSelection();
         window.display();
     }
 

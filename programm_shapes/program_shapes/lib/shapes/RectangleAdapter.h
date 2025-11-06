@@ -17,6 +17,10 @@ public:
 	void Draw() override;
 	std::string GetType() override;
 
+	bool IsClick(const sf::Vector2i& mousePos) override;
+	FrameParameters CalckSelectionFrameParameters() override;
+
+
 private:
 	Point m_leftTopCorner;
 	int m_width;

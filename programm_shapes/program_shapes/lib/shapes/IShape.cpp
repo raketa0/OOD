@@ -12,3 +12,13 @@ std::string IShape::GetType()
 {
 	return ""; 
 }
+
+bool IShape::IsClick(const sf::Vector2i& mousePos)
+{
+	return false;
+}
+
+FrameParameters IShape::CalckSelectionFrameParameters()
+{
+	return {};
+}

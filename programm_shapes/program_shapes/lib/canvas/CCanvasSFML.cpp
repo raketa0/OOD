@@ -13,13 +13,23 @@ void CCanvasSFML::drawCircle(Point centerCircle, int radius)
 	m_window.draw(circle);
 }
 
-void CCanvasSFML::drawRectangle(Point leftTopCorner, int width, int height)
+void CCanvasSFML::drawRectangle(Point leftTopCorner, int width, int height,
+    float outlineThickness,
+    sf::Color outlineColor,
+    bool useFill)
 {
     sf::RectangleShape rectangle(sf::Vector2f(width, height));
     rectangle.setPosition(sf::Vector2f(leftTopCorner.x, leftTopCorner.y));
-    rectangle.setOutlineThickness(4.f);
-    rectangle.setOutlineColor(sf::Color::White);
-    rectangle.setFillColor(sf::Color::Transparent);
+    rectangle.setOutlineThickness(outlineThickness);
+    rectangle.setOutlineColor(outlineColor);
+
+    if (useFill) {
+        rectangle.setFillColor(outlineColor);
+    }
+    else {
+        rectangle.setFillColor(sf::Color::Transparent);
+    }
+
     m_window.draw(rectangle);
 }
 

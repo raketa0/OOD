@@ -1,41 +1,66 @@
 #include "CShapeSelector.h"
 #include "../tools/Parser.h"
+#include "../tools/ShapesStruct.h"
 
-//sf::Mouse::getPosition(window)
 
-/*
-CShapeSelector::CShapeSelector(std::shared_ptr<CÑompositionShapes> composition)
-	: m_composition(composition), m_selectedShape(nullptr){}
-
-void CShapeSelector::OnClick(const sf::Vector2i& mousePos)
+CShapeSelector::CShapeSelector(std::shared_ptr<CÑompositionShapes> composition,
+    std::shared_ptr<CCanvasSFML> canvas)
+	: m_composition(composition), m_canvas(std::move(canvas)),
+	m_selectedShape(nullptr), m_selectionFrameParameters({ {0,0}, 0, 0 })
 {
+    assert(m_canvas);
 }
 
-void CShapeSelector::DrawSelection(sf::RenderWindow& window)
+void CShapeSelector::OnClick(sf::Vector2i& mousePos)
 {
+    IsClickInsideShape(mousePos);
 }
 
-bool CShapeSelector::IsClickInsideShape(const sf::Vector2i& mousePos)
+void CShapeSelector::DrawSelection()
+{
+    if (m_selectedShape == nullptr)
+    {
+        return;
+    }
+
+    Point topLeft(m_selectionFrameParameters.topLeftCorner.x, 
+        m_selectionFrameParameters.topLeftCorner.y);
+
+    Point topRight(m_selectionFrameParameters.topLeftCorner.x + m_selectionFrameParameters.width,
+        m_selectionFrameParameters.topLeftCorner.y);
+
+    Point bottomLeft(m_selectionFrameParameters.topLeftCorner.x,
+        m_selectionFrameParameters.topLeftCorner.y + m_selectionFrameParameters.height);
+
+    Point bottomRight(m_selectionFrameParameters.topLeftCorner.x + m_selectionFrameParameters.width,
+        m_selectionFrameParameters.topLeftCorner.y + m_selectionFrameParameters.height);
+
+    m_canvas->drawRectangle(m_selectionFrameParameters.topLeftCorner, 
+        m_selectionFrameParameters.width, m_selectionFrameParameters.height,
+        1.0f, sf::Color::Yellow, false);
+
+    m_canvas->drawRectangle(topLeft, 5.0f, 5.0f, 
+        1.0f, sf::Color::Green, true);
+
+    m_canvas->drawRectangle(topRight, 5.0f, 5.0f, 
+        1.0f, sf::Color::Green, true);
+
+    m_canvas->drawRectangle(bottomLeft, 5.0f, 5.0f, 
+        1.0f, sf::Color::Green, true);
+
+    m_canvas->drawRectangle(bottomRight, 5.0f, 5.0f, 
+        1.0f, sf::Color::Green, true);
+}
+
+void CShapeSelector::IsClickInsideShape(sf::Vector2i& mousePos)
 {
 	Parser parser;
 	for (auto& [id, shape] : m_composition->GetÑompositionShapes())
 	{
-		Shape type = parser.StrTypeInEnum(shape->GetType());
-		auto sh = m_composition->FindShapeById(id);
-			switch (type)
-			{
-				case CIRCLE:
-					CircleAdapter 
-					double dx = mousePos.x - sh->GetCenterCircle;
-					break;
-				case RECTANGLE:
-					break;
-				case TRIANGLE:
-					break;
-			default:
-				break;
-			}
+		if (shape->IsClick(mousePos))
+		{
+			m_selectedShape = shape;
+			m_selectionFrameParameters = shape->CalckSelectionFrameParameters();
+		}
 	}
-	
 }
-*/

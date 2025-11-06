@@ -17,12 +17,15 @@ public:
 	double Area() override;
 	void Draw() override;
 	std::string GetType() override;
-	Point GetCenterCircle();
-	int GetRadius();
+
+	bool IsClick(const sf::Vector2i& mousePos) override;
+	FrameParameters CalckSelectionFrameParameters() override;
+
 private:
 	Point m_centerCircle;
 	int m_radius;
 	std::string m_type = CIRCLE_TYPE;
 	std::shared_ptr<ICanvasSFML> m_canvas;
+
 };
 
