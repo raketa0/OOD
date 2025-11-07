@@ -7,6 +7,7 @@
 #include "../canvas/CCanvasSFML.h"
 #include "../tools/Constants.h"
 #include "../interactive/CShapeSelector.h"
+#include "../interactive/CShapeDraggerMove.h"
 
 void run()
 {
@@ -23,7 +24,7 @@ void run()
     composition->OutCharacteristics();
 
     CShapeSelector selector(composition, canvas);
-
+    CShapeDraggerMove dragger(composition, selector);
     while (window.isOpen())
     {
         while (const auto event = window.pollEvent())
@@ -35,8 +36,46 @@ void run()
                 
             else if (event->is<sf::Event::MouseButtonPressed>())
             {
-                sf::Vector2i mousePosition = sf::Mouse::getPosition(window);  // Получаем позицию клика
-                selector.OnClick(mousePosition);  // Проверяем клик по фигурам, обновляем выделение
+                if (const auto* mouseEvent = event->getIf<sf::Event::MouseButtonPressed>())
+                {
+                    if (mouseEvent->button == sf::Mouse::Button::Left)
+                    {
+                        sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+                        bool isShiftPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LShift)
+                            || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::RShift);
+                        selector.OnClick(mousePosition, isShiftPressed);
+                        dragger.StartDrag(mousePosition);
+                    }
+                }
+            }
+            else if (event->is<sf::Event::MouseMoved>())
+            {
+                sf::Vector2i mousePosition = sf::Mouse::getPosition(window);
+                dragger.OnMouseMoved(mousePosition);
+            }
+            else if (event->is<sf::Event::MouseButtonReleased>())
+            {
+                if (const auto* mouseEvent = event->getIf<sf::Event::MouseButtonReleased>())
+                {
+                    if (mouseEvent->button == sf::Mouse::Button::Left)
+                    {
+                        dragger.EndDrag();
+					}
+                }
+            }
+            else if (event->is<sf::Event::KeyPressed>())
+            {
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LControl) &&
+                    sf::Keyboard::isKeyPressed(sf::Keyboard::Key::G))
+                {
+                    selector.GroupSelectedShapes();
+                }
+
+                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LControl) &&
+                    sf::Keyboard::isKeyPressed(sf::Keyboard::Key::U))
+                {
+                    selector.UngroupSelectedShape();
+                }
             }
         }
 

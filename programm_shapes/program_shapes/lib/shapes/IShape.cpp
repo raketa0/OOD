@@ -1,4 +1,5 @@
 #include "IShape.h"
+#include <map>
 
 double IShape::Perimeter() 
 { 
@@ -22,3 +23,27 @@ FrameParameters IShape::CalckSelectionFrameParameters()
 {
 	return {};
 }
+
+void IShape::SetSelected(bool value)
+{
+}
+
+bool IShape::IsSelected()
+{
+	return false;
+}
+
+bool IShape::IsGroup()
+{
+	return false;
+}
+
+std::map<int, std::shared_ptr<IShape>> IShape::GetGroupedShapes()
+{
+	return {};
+}
+
+void IShape::MoveShape(const Point& newPosition)
+{
+}
+

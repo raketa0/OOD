@@ -24,11 +24,13 @@ public:
 	void Draw() override;
 
 	void AddShape(std::shared_ptr<IShape> shape);
+	void RemoveShapeById(int id);
+
 	void LoadFromFile(const std::string& filename);
 	void OutCharacteristics();
 	std::map<int, std::shared_ptr<IShape>> Get—ompositionShapes();
 	std::shared_ptr<IShape> FindShapeById(int id);
-
+	std::map<int, std::shared_ptr<IShape>> GetSelectedShapes();
 private:
 	std::map<int, std::shared_ptr<IShape>> m_shapes;
 	std::shared_ptr<ICanvasSFML> m_canvas;

@@ -21,6 +21,11 @@ void CÑompositionShapes::AddShape(std::shared_ptr<IShape> shape)
     m_shapes[id] = std::move(shape);
 }
 
+void CÑompositionShapes::RemoveShapeById(int id)
+{
+	m_shapes.erase(id);
+}
+
 void CÑompositionShapes::Draw()
 {
     for (auto& [id, shape] : m_shapes)
@@ -121,4 +126,17 @@ std::shared_ptr<IShape> CÑompositionShapes::FindShapeById(int id)
         }
     }
     return nullptr;
+}
+
+std::map<int, std::shared_ptr<IShape>> CÑompositionShapes::GetSelectedShapes()
+{
+	std::map<int, std::shared_ptr<IShape>> selectedShapes;
+    for (auto& [id, shape] : m_shapes)
+    {
+        if (shape->IsSelected())
+        {
+            selectedShapes[id] = shape;
+        }
+    }
+	return selectedShapes;
 }

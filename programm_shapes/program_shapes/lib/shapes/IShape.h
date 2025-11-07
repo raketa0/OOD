@@ -2,7 +2,7 @@
 #include "../canvas/ICanvasSFML.h"
 #include <string>
 #include "../tools/ShapesStruct.h"
-
+#include <map>
 class IShape
 {
 public:
@@ -13,6 +13,11 @@ public:
 	virtual std::string GetType();
 	virtual bool IsClick(const sf::Vector2i& mousePos);
 	virtual FrameParameters CalckSelectionFrameParameters();
-	
+	virtual void SetSelected(bool value);
+	virtual bool IsSelected();
+	virtual bool IsGroup();
+	virtual std::map<int, std::shared_ptr<IShape>> GetGroupedShapes();
+	virtual void MoveShape(const Point& newPosition);
+
 };
 

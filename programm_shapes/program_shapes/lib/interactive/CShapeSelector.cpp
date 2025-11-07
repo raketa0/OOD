@@ -1,66 +1,116 @@
 #include "CShapeSelector.h"
 #include "../tools/Parser.h"
 #include "../tools/ShapesStruct.h"
+#include "../shapes/CGroupShape.h"
 
 
 CShapeSelector::CShapeSelector(std::shared_ptr<CÑompositionShapes> composition,
     std::shared_ptr<CCanvasSFML> canvas)
 	: m_composition(composition), m_canvas(std::move(canvas)),
-	m_selectedShape(nullptr), m_selectionFrameParameters({ {0,0}, 0, 0 })
+	m_selectionFrameParameters({ {0,0}, 0, 0 })
 {
     assert(m_canvas);
 }
 
-void CShapeSelector::OnClick(sf::Vector2i& mousePos)
+void CShapeSelector::OnClick(sf::Vector2i& mousePos, bool isShiftPressed)
 {
-    IsClickInsideShape(mousePos);
+    if (!isShiftPressed)
+    {
+        for (auto& [id, shape] : m_composition->GetÑompositionShapes())
+        {
+            shape->SetSelected(false);
+        }
+    }
+
+    for (auto& [id, shape] : m_composition->GetÑompositionShapes())
+    {
+        if ((isShiftPressed) && (shape->IsClick(mousePos)))
+        {
+			shape->SetSelected(true);
+        }
+        else if (shape->IsClick(mousePos))
+        {
+            shape->SetSelected(true);
+            break;
+        }
+    }
 }
 
 void CShapeSelector::DrawSelection()
 {
-    if (m_selectedShape == nullptr)
+    auto selectedShapes = m_composition->GetSelectedShapes();
+    if (selectedShapes.empty())
     {
         return;
     }
+    else
+    {
+        for (auto& [id, shape] : selectedShapes)
+        {
+            m_selectionFrameParameters = shape->CalckSelectionFrameParameters();
 
-    Point topLeft(m_selectionFrameParameters.topLeftCorner.x, 
-        m_selectionFrameParameters.topLeftCorner.y);
+            Point topLeft(m_selectionFrameParameters.topLeftCorner.x,
+                m_selectionFrameParameters.topLeftCorner.y);
 
-    Point topRight(m_selectionFrameParameters.topLeftCorner.x + m_selectionFrameParameters.width,
-        m_selectionFrameParameters.topLeftCorner.y);
+            Point topRight(m_selectionFrameParameters.topLeftCorner.x + m_selectionFrameParameters.width,
+                m_selectionFrameParameters.topLeftCorner.y);
 
-    Point bottomLeft(m_selectionFrameParameters.topLeftCorner.x,
-        m_selectionFrameParameters.topLeftCorner.y + m_selectionFrameParameters.height);
+            Point bottomLeft(m_selectionFrameParameters.topLeftCorner.x,
+                m_selectionFrameParameters.topLeftCorner.y + m_selectionFrameParameters.height);
 
-    Point bottomRight(m_selectionFrameParameters.topLeftCorner.x + m_selectionFrameParameters.width,
-        m_selectionFrameParameters.topLeftCorner.y + m_selectionFrameParameters.height);
+            Point bottomRight(m_selectionFrameParameters.topLeftCorner.x + m_selectionFrameParameters.width,
+                m_selectionFrameParameters.topLeftCorner.y + m_selectionFrameParameters.height);
 
-    m_canvas->drawRectangle(m_selectionFrameParameters.topLeftCorner, 
-        m_selectionFrameParameters.width, m_selectionFrameParameters.height,
-        1.0f, sf::Color::Yellow, false);
+            m_canvas->drawRectangle(m_selectionFrameParameters.topLeftCorner,
+                m_selectionFrameParameters.width, m_selectionFrameParameters.height,
+                1.0f, sf::Color::Yellow, false);
 
-    m_canvas->drawRectangle(topLeft, 5.0f, 5.0f, 
-        1.0f, sf::Color::Green, true);
+            m_canvas->drawRectangle(topLeft, 5.0f, 5.0f,
+                1.0f, sf::Color::Green, true);
 
-    m_canvas->drawRectangle(topRight, 5.0f, 5.0f, 
-        1.0f, sf::Color::Green, true);
+            m_canvas->drawRectangle(topRight, 5.0f, 5.0f,
+                1.0f, sf::Color::Green, true);
 
-    m_canvas->drawRectangle(bottomLeft, 5.0f, 5.0f, 
-        1.0f, sf::Color::Green, true);
+            m_canvas->drawRectangle(bottomLeft, 5.0f, 5.0f,
+                1.0f, sf::Color::Green, true);
 
-    m_canvas->drawRectangle(bottomRight, 5.0f, 5.0f, 
-        1.0f, sf::Color::Green, true);
+            m_canvas->drawRectangle(bottomRight, 5.0f, 5.0f,
+                1.0f, sf::Color::Green, true);
+        }
+    }
 }
 
-void CShapeSelector::IsClickInsideShape(sf::Vector2i& mousePos)
+void CShapeSelector::GroupSelectedShapes()
 {
-	Parser parser;
-	for (auto& [id, shape] : m_composition->GetÑompositionShapes())
-	{
-		if (shape->IsClick(mousePos))
-		{
-			m_selectedShape = shape;
-			m_selectionFrameParameters = shape->CalckSelectionFrameParameters();
-		}
-	}
+    auto selected = m_composition->GetSelectedShapes();
+    if (selected.size() < 2)
+        return;
+
+    auto group = std::make_shared<CGroupShape>(selected, m_canvas);
+
+    for (auto& [id, shape] : selected)
+    {
+        m_composition->RemoveShapeById(id);
+    }
+
+    m_composition->AddShape(group);
 }
+
+void CShapeSelector::UngroupSelectedShape()
+{
+    auto selected = m_composition->GetSelectedShapes();
+
+    for (auto& [id, shape] : selected)
+    {
+        if (shape->IsGroup())
+        {
+            auto groupShapes = shape->GetGroupedShapes();
+            for (auto& [innerId, innerShape] : groupShapes)
+            {
+                m_composition->AddShape(innerShape);
+            }
+            m_composition->RemoveShapeById(id);
+        }
+    }
+}
+

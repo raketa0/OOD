@@ -50,4 +50,19 @@ FrameParameters RectangleAdapter::CalckSelectionFrameParameters()
 	return frameParams;
 }
 
+void RectangleAdapter::SetSelected(bool value)
+{
+	m_isSelected = value;
+}
+
+bool RectangleAdapter::IsSelected()
+{
+	return m_isSelected;
+}
+
+void RectangleAdapter::MoveShape(const Point& newPosition)
+{
+	m_leftTopCorner = newPosition;
+}
+
 

@@ -79,6 +79,28 @@ FrameParameters TriangleAdapter::CalckSelectionFrameParameters()
 	return frameParams;
 }
 
+void TriangleAdapter::SetSelected(bool value)
+{
+	m_isSelected = value;
+}
+
+bool TriangleAdapter::IsSelected()
+{
+	return m_isSelected;
+}
+
+void TriangleAdapter::MoveShape(const Point& newPosition)
+{
+    int deltaX = newPosition.x - CalckSelectionFrameParameters().topLeftCorner.x;
+    int deltaY = newPosition.y - CalckSelectionFrameParameters().topLeftCorner.y;
+    m_firstPoint.x += deltaX;
+    m_firstPoint.y += deltaY;
+    m_secondPoint.x += deltaX;
+    m_secondPoint.y += deltaY;
+    m_thirdPoint.x += deltaX;
+	m_thirdPoint.y += deltaY;
+}
+
 double TriangleAdapter::Distation(const Point& firstPoint, const Point& secondPoint)
 {
     double dx = double(firstPoint.x - secondPoint.x);

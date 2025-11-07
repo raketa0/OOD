@@ -51,3 +51,18 @@ FrameParameters CircleAdapter::CalckSelectionFrameParameters()
 	return frameParams;
 }
 
+void CircleAdapter::SetSelected(bool value)
+{
+	m_isSelected = value;
+}
+
+bool CircleAdapter::IsSelected()
+{
+	return m_isSelected;
+}
+
+void CircleAdapter::MoveShape(const Point& newPosition)
+{
+	m_centerCircle = Point{ newPosition.x + m_radius, newPosition.y + m_radius };
+}
+

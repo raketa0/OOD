@@ -19,7 +19,9 @@ public:
 
 	bool IsClick(const sf::Vector2i& mousePos) override;
 	FrameParameters CalckSelectionFrameParameters() override;
-
+	void SetSelected(bool value) override;
+	bool IsSelected() override;
+	void MoveShape(const Point& newPosition) override;
 
 private:
 	Point m_leftTopCorner;
@@ -27,4 +29,5 @@ private:
 	int m_height;
 	std::string m_type;
 	std::shared_ptr<ICanvasSFML> m_canvas;
+	bool m_isSelected = false;
 };
