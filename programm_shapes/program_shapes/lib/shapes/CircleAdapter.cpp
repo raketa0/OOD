@@ -24,7 +24,7 @@ double CircleAdapter::Area()
 
 void CircleAdapter::Draw()
 {
-	m_canvas->drawCircle(m_centerCircle, m_radius);
+	m_canvas->DrawCircle(m_centerCircle, m_radius);
 }
 
 std::string CircleAdapter::GetType()
@@ -46,8 +46,8 @@ FrameParameters CircleAdapter::CalckSelectionFrameParameters()
 	FrameParameters frameParams{};
 	frameParams.topLeftCorner.x = m_centerCircle.x - m_radius;
 	frameParams.topLeftCorner.y = m_centerCircle.y - m_radius;
-	frameParams.width = 2 * m_radius;
-	frameParams.height = 2 * m_radius;
+	frameParams.width = SECOND_NUM * m_radius;
+	frameParams.height = SECOND_NUM * m_radius;
 	return frameParams;
 }
 

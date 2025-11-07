@@ -7,7 +7,7 @@
 CShapeSelector::CShapeSelector(std::shared_ptr<CÑompositionShapes> composition,
     std::shared_ptr<CCanvasSFML> canvas)
 	: m_composition(composition), m_canvas(std::move(canvas)),
-	m_selectionFrameParameters({ {0,0}, 0, 0 })
+	m_selectionFrameParameters({ {ZERO,ZERO}, ZERO, ZERO })
 {
     assert(m_canvas);
 }
@@ -60,22 +60,22 @@ void CShapeSelector::DrawSelection()
 
             Point bottomRight(m_selectionFrameParameters.topLeftCorner.x + m_selectionFrameParameters.width,
                 m_selectionFrameParameters.topLeftCorner.y + m_selectionFrameParameters.height);
-
-            m_canvas->drawRectangle(m_selectionFrameParameters.topLeftCorner,
+            
+            m_canvas->DrawRectangle(m_selectionFrameParameters.topLeftCorner,
                 m_selectionFrameParameters.width, m_selectionFrameParameters.height,
-                1.0f, sf::Color::Yellow, false);
+                OUTLINE_THINCENSS, sf::Color::Yellow, false);
 
-            m_canvas->drawRectangle(topLeft, 5.0f, 5.0f,
-                1.0f, sf::Color::Green, true);
+            m_canvas->DrawRectangle(topLeft, SIDE_OF_THE_SQUARE, SIDE_OF_THE_SQUARE,
+                OUTLINE_THINCENSS, sf::Color::Green, true);
 
-            m_canvas->drawRectangle(topRight, 5.0f, 5.0f,
-                1.0f, sf::Color::Green, true);
+            m_canvas->DrawRectangle(topRight, SIDE_OF_THE_SQUARE, SIDE_OF_THE_SQUARE,
+                OUTLINE_THINCENSS, sf::Color::Green, true);
 
-            m_canvas->drawRectangle(bottomLeft, 5.0f, 5.0f,
-                1.0f, sf::Color::Green, true);
+            m_canvas->DrawRectangle(bottomLeft, SIDE_OF_THE_SQUARE, SIDE_OF_THE_SQUARE,
+                OUTLINE_THINCENSS, sf::Color::Green, true);
 
-            m_canvas->drawRectangle(bottomRight, 5.0f, 5.0f,
-                1.0f, sf::Color::Green, true);
+            m_canvas->DrawRectangle(bottomRight, SIDE_OF_THE_SQUARE, SIDE_OF_THE_SQUARE,
+                OUTLINE_THINCENSS, sf::Color::Green, true);
         }
     }
 }
@@ -83,7 +83,7 @@ void CShapeSelector::DrawSelection()
 void CShapeSelector::GroupSelectedShapes()
 {
     auto selected = m_composition->GetSelectedShapes();
-    if (selected.size() < 2)
+    if (selected.size() < SECOND)
         return;
 
     auto group = std::make_shared<CGroupShape>(selected, m_canvas);

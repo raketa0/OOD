@@ -19,7 +19,7 @@ void CGroupShape::Draw()
 
 std::string CGroupShape::GetType()
 {
-	return "GROUP";
+	return GROUP_TYPE;
 }
 
 bool CGroupShape::IsSelected()
@@ -51,7 +51,7 @@ bool CGroupShape::IsClick(const sf::Vector2i& mousePos)
 
 FrameParameters CGroupShape::CalckSelectionFrameParameters()
 {
-	FrameParameters frameParams{ {0, 0}, 0, 0 };
+	FrameParameters frameParams{ {ZERO, ZERO}, ZERO, ZERO };
 	bool firstShape = true;
 	for (auto& [id, shape] : m_groupedShapes)
 	{

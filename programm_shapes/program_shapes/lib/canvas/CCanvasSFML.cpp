@@ -3,7 +3,7 @@
 
 CCanvasSFML::CCanvasSFML(sf::RenderWindow& window): m_window(window) {}
 
-void CCanvasSFML::drawCircle(Point centerCircle, int radius)
+void CCanvasSFML::DrawCircle(Point centerCircle, int radius)
 {
 	sf::CircleShape circle(radius);
 	circle.setPosition(sf::Vector2f(centerCircle.x - radius, centerCircle.y - radius));
@@ -13,7 +13,7 @@ void CCanvasSFML::drawCircle(Point centerCircle, int radius)
 	m_window.draw(circle);
 }
 
-void CCanvasSFML::drawRectangle(Point leftTopCorner, int width, int height,
+void CCanvasSFML::DrawRectangle(Point leftTopCorner, int width, int height,
     float outlineThickness,
     sf::Color outlineColor,
     bool useFill)
@@ -33,7 +33,7 @@ void CCanvasSFML::drawRectangle(Point leftTopCorner, int width, int height,
     m_window.draw(rectangle);
 }
 
-void CCanvasSFML::drawTriangle(Point firstPoint, Point secondPoint, Point thirdPoint)
+void CCanvasSFML::DrawTriangle(Point firstPoint, Point secondPoint, Point thirdPoint)
 {
     sf::ConvexShape triangle(3);
     triangle.setPoint(0, sf::Vector2f(firstPoint.x, firstPoint.y));

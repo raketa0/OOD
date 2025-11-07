@@ -33,7 +33,7 @@ double TriangleAdapter::Area()
 
 void TriangleAdapter::Draw()
 {
-	m_canvas->drawTriangle(m_firstPoint, m_secondPoint, m_thirdPoint);
+	m_canvas->DrawTriangle(m_firstPoint, m_secondPoint, m_thirdPoint);
 }
 
 std::string TriangleAdapter::GetType()
@@ -45,7 +45,7 @@ bool TriangleAdapter::IsClick(const sf::Vector2i& mousePosition)
 {
 
     double fullTriangleArea = CalculateTriangleArea(m_firstPoint, m_secondPoint, m_thirdPoint);
-    if (fullTriangleArea < 1.0) 
+    if (fullTriangleArea < FIRST)
     { 
         return false;
     }
@@ -57,7 +57,7 @@ bool TriangleAdapter::IsClick(const sf::Vector2i& mousePosition)
         + CalculateTriangleArea(m_firstPoint, m_secondPoint, clickPoint);
 
     
-    double tolerance = 1.0;
+    double tolerance = FIRST;
     if (std::abs(sumOfSubAreas - fullTriangleArea) <= tolerance) 
     {
         return true;

@@ -9,7 +9,7 @@
 #include "../interactive/CShapeSelector.h"
 #include "../interactive/CShapeDraggerMove.h"
 
-void run()
+void Run()
 {
     setlocale(LC_ALL, LOCALE_RU);
 

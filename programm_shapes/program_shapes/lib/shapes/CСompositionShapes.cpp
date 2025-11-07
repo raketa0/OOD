@@ -58,8 +58,8 @@ void CÑompositionShapes::LoadFromFile(const std::string& filename)
         {
         case CIRCLE:
         {
-            Point centerCircle{ 0, 0 };
-            int radius = 0;
+            Point centerCircle{ ZERO, ZERO };
+            int radius = ZERO;
             std::string type = CIRCLE_TYPE;
 
             parser.ParserCircle(line, centerCircle, radius);
@@ -68,9 +68,9 @@ void CÑompositionShapes::LoadFromFile(const std::string& filename)
         }
         case RECTANGLE:
         {
-            Point leftTop{ 0,0 };
-            int width = 0;
-            int height = 0;
+            Point leftTop{ ZERO, ZERO };
+            int width = ZERO;
+            int height = ZERO;
             std::string type = RECTANGLE_TYPE;
 
             parser.ParserRectangle(line, leftTop, width, height);
@@ -79,7 +79,7 @@ void CÑompositionShapes::LoadFromFile(const std::string& filename)
         }
         case TRIANGLE:
         {
-            Point p1{ 0,0 }, p2{ 0,0 }, p3{ 0,0 };
+            Point p1{ ZERO, ZERO }, p2{ ZERO, ZERO }, p3{ ZERO, ZERO };
             std::string type = TRIANGLE_TYPE;
 
             parser.ParserTriangle(line, p1, p2, p3);

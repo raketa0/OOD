@@ -3,11 +3,11 @@
 
 double IShape::Perimeter() 
 { 
-	return 0.0;
+	return ZERO;
 }
 double IShape::Area()
 { 
-	return 0.0; 
+	return ZERO;
 }
 std::string IShape::GetType()
 {

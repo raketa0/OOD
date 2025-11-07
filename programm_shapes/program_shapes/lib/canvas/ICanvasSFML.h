@@ -5,12 +5,12 @@
 class ICanvasSFML
 {
 public:
-    virtual void drawCircle(Point centerCircle, int radius) = 0;
-    virtual void drawRectangle(Point leftTopCorner, int width, int height,
-		float outlineThickness = 4.0f,
+    virtual void DrawCircle(Point centerCircle, int radius) = 0;
+    virtual void DrawRectangle(Point leftTopCorner, int width, int height,
+		float outlineThickness = DEFOLD_OUTLINE_THINCENSS,
 		sf::Color outlineColor = sf::Color::White,
 		bool useFill = false) = 0;
-    virtual void drawTriangle(Point firstPoint, Point secondPoint, Point thirdPoint) = 0;
+    virtual void DrawTriangle(Point firstPoint, Point secondPoint, Point thirdPoint) = 0;
 };
 
 
