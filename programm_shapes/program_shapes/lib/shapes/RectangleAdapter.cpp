@@ -23,7 +23,7 @@ double RectangleAdapter::Area()
 	return double(m_width) * double(m_height);
 }
 
-void RectangleAdapter::Draw()
+void RectangleAdapter::DrawShape()
 {
 	m_canvas->DrawRectangle(m_leftTopCorner, m_width, m_height);
 }
@@ -32,37 +32,4 @@ std::string RectangleAdapter::GetType()
 {
 	return m_type;
 }
-
-bool RectangleAdapter::IsClick(const sf::Vector2i& mousePos)
-{
-	return (mousePos.x >= m_leftTopCorner.x &&
-		mousePos.x <= m_leftTopCorner.x + m_width &&
-		mousePos.y >= m_leftTopCorner.y &&
-		mousePos.y <= m_leftTopCorner.y + m_height);
-}
-
-FrameParameters RectangleAdapter::CalckSelectionFrameParameters()
-{
-	FrameParameters frameParams{};
-	frameParams.topLeftCorner = m_leftTopCorner;
-	frameParams.width = m_width;
-	frameParams.height = m_height;
-	return frameParams;
-}
-
-void RectangleAdapter::SetSelected(bool value)
-{
-	m_isSelected = value;
-}
-
-bool RectangleAdapter::IsSelected()
-{
-	return m_isSelected;
-}
-
-void RectangleAdapter::MoveShape(const Point& newPosition)
-{
-	m_leftTopCorner = newPosition;
-}
-
 

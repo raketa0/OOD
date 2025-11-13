@@ -22,7 +22,7 @@ double CircleAdapter::Area()
 	return PI * m_radius * m_radius;
 }
 
-void CircleAdapter::Draw()
+void CircleAdapter::DrawShape()
 {
 	m_canvas->DrawCircle(m_centerCircle, m_radius);
 }
@@ -31,38 +31,3 @@ std::string CircleAdapter::GetType()
 {
 	return m_type;
 }
-
-bool CircleAdapter::IsClick(const sf::Vector2i& mousePos)
-{
-	double dx = mousePos.x - m_centerCircle.x;
-	double dy = mousePos.y - m_centerCircle.y;
-	double distanceSquared = dx * dx + dy * dy;
-	
-	return distanceSquared <= m_radius * m_radius;
-}
-
-FrameParameters CircleAdapter::CalckSelectionFrameParameters()
-{
-	FrameParameters frameParams{};
-	frameParams.topLeftCorner.x = m_centerCircle.x - m_radius;
-	frameParams.topLeftCorner.y = m_centerCircle.y - m_radius;
-	frameParams.width = SECOND_NUM * m_radius;
-	frameParams.height = SECOND_NUM * m_radius;
-	return frameParams;
-}
-
-void CircleAdapter::SetSelected(bool value)
-{
-	m_isSelected = value;
-}
-
-bool CircleAdapter::IsSelected()
-{
-	return m_isSelected;
-}
-
-void CircleAdapter::MoveShape(const Point& newPosition)
-{
-	m_centerCircle = Point{ newPosition.x + m_radius, newPosition.y + m_radius };
-}
-
