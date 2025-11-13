@@ -11,6 +11,7 @@ public:
 	virtual double Perimeter();
 	virtual double Area();
 	virtual std::string GetType();
+
 	virtual bool IsClick(const sf::Vector2i& mousePos);
 	virtual FrameParameters CalckSelectionFrameParameters();
 	virtual void SetSelected(bool value);

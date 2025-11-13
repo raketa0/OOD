@@ -48,21 +48,23 @@ void CShapeSelector::DrawSelection()
         for (auto& [id, shape] : selectedShapes)
         {
             m_selectionFrameParameters = shape->CalckSelectionFrameParameters();
+            m_selectionFrameParameters.topLeftCorner.x -= 7;
+            m_selectionFrameParameters.topLeftCorner.y -= 7;
 
             Point topLeft(m_selectionFrameParameters.topLeftCorner.x,
                 m_selectionFrameParameters.topLeftCorner.y);
 
-            Point topRight(m_selectionFrameParameters.topLeftCorner.x + m_selectionFrameParameters.width,
+            Point topRight(m_selectionFrameParameters.topLeftCorner.x + m_selectionFrameParameters.width + 9,
                 m_selectionFrameParameters.topLeftCorner.y);
 
             Point bottomLeft(m_selectionFrameParameters.topLeftCorner.x,
-                m_selectionFrameParameters.topLeftCorner.y + m_selectionFrameParameters.height);
+                m_selectionFrameParameters.topLeftCorner.y + m_selectionFrameParameters.height + 9);
 
-            Point bottomRight(m_selectionFrameParameters.topLeftCorner.x + m_selectionFrameParameters.width,
-                m_selectionFrameParameters.topLeftCorner.y + m_selectionFrameParameters.height);
+            Point bottomRight(m_selectionFrameParameters.topLeftCorner.x + m_selectionFrameParameters.width + 9,
+                m_selectionFrameParameters.topLeftCorner.y + m_selectionFrameParameters.height + 9);
             
             m_canvas->DrawRectangle(m_selectionFrameParameters.topLeftCorner,
-                m_selectionFrameParameters.width, m_selectionFrameParameters.height,
+                m_selectionFrameParameters.width + 14, m_selectionFrameParameters.height + 14,
                 OUTLINE_THINCENSS, sf::Color::Yellow, false);
 
             m_canvas->DrawRectangle(topLeft, SIDE_OF_THE_SQUARE, SIDE_OF_THE_SQUARE,

@@ -25,7 +25,7 @@ const int SECOND_COORD_COUNT = 1;
 const int ZERO = 0;
 
 const float SIDE_OF_THE_SQUARE = 5.0f;
-const float OUTLINE_THINCENSS = 1.0f;
+const float OUTLINE_THINCENSS = 6.0f;
 const float DEFOLD_OUTLINE_THINCENSS = 4.0f;
 
 const std::string CIRCLE_TYPE = "CIRCLE:";

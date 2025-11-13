@@ -43,7 +43,7 @@ bool RectangleAdapter::IsClick(const sf::Vector2i& mousePos)
 
 FrameParameters RectangleAdapter::CalckSelectionFrameParameters()
 {
-	FrameParameters frameParams;
+	FrameParameters frameParams{};
 	frameParams.topLeftCorner = m_leftTopCorner;
 	frameParams.width = m_width;
 	frameParams.height = m_height;

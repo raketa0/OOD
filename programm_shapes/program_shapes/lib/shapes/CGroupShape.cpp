@@ -39,14 +39,12 @@ void CGroupShape::SetSelected(bool value)
 
 bool CGroupShape::IsClick(const sf::Vector2i& mousePos)
 {
-	for (auto& [id, shape] : m_groupedShapes)
-	{
-		if (shape->IsClick(mousePos))
-		{
-			return true;
-		}
-	}
-	return false;
+	m_frameParameters = CalckSelectionFrameParameters();
+
+	return (mousePos.x >= m_frameParameters.topLeftCorner.x &&
+		mousePos.x <= m_frameParameters.topLeftCorner.x + m_frameParameters.width &&
+		mousePos.y >= m_frameParameters.topLeftCorner.y &&
+		mousePos.y <= m_frameParameters.topLeftCorner.y + m_frameParameters.height);
 }
 
 FrameParameters CGroupShape::CalckSelectionFrameParameters()
