@@ -16,3 +16,10 @@ enum Shape
 	ERROR
 };
 
+struct FrameParameters
+{
+	Point topLeftCorner;
+	int width;
+	int height;
+};
+
