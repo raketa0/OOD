@@ -1,3 +1,10 @@
 #pragma once
+#include "Application.h"
 
-void Run();
+
+void Run()
+{
+    Application::GetApp().Run();
+}
+
+
