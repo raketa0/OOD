@@ -10,6 +10,7 @@ public:
 		float outlineThickness = DEFOLD_OUTLINE_THINCENSS,
 		sf::Color outlineColor = sf::Color::White,
 		bool useFill = false) = 0;
+
     virtual void DrawTriangle(Point firstPoint, Point secondPoint, Point thirdPoint) = 0;
 };
 

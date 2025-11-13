@@ -10,6 +10,7 @@ public:
 		float outlineThickness,
 		sf::Color outlineColor,
 		bool useFill) override;
+
 	void DrawTriangle(Point firstPoint, Point secondPoint, Point thirdPoint) override;
 private:
 	sf::RenderWindow& m_window;
