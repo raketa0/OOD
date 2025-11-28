@@ -26,6 +26,10 @@ public:
 	bool IsSelected() override;
 	void MoveShape(const Point& newPosition) override;
 
+	void ChangeFillColor(const sf::Color& color) override;
+	void ChangeOutlineColor(const sf::Color& color) override;
+	void ChangeOutlineThickness(float thickness) override;
+
 private:
 	Point m_firstPoint;
 	Point m_secondPoint;
@@ -33,6 +37,10 @@ private:
 	std::string m_type;
 	std::shared_ptr<ICanvasSFML> m_canvas;
 	bool m_isSelected = false;
+
+	sf::Color m_fillColor = sf::Color::White;
+	sf::Color m_outlineColor = sf::Color::White;
+	float m_outlineThickness = DEFOLD_OUTLINE_THINCENSS;
 
 	double Distation(const Point& firstPoint, const Point& secondPoint);
 	double CalculateTriangleArea(const Point& firstPoint, const Point& secondPoint, const Point& thirdPoint);

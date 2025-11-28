@@ -92,3 +92,27 @@ void CGroupShape::MoveShape(const Point& newPosition)
 		shape->MoveShape(shapeNewTopLeft);
 	}
 }
+
+void CGroupShape::ChangeFillColor(const sf::Color& color)
+{
+	for (auto& [id, shape] : m_groupedShapes)
+	{
+		shape -> ChangeFillColor(color);
+	}
+}
+
+void CGroupShape::ChangeOutlineColor(const sf::Color& color)
+{
+	for (auto& [id, shape] : m_groupedShapes)
+	{
+		shape->ChangeOutlineColor(color);
+	}
+}
+
+void CGroupShape::ChangeOutlineThickness(float thickness)
+{
+	for (auto& [id, shape] : m_groupedShapes)
+	{
+		shape->ChangeOutlineThickness(thickness);
+	}
+}

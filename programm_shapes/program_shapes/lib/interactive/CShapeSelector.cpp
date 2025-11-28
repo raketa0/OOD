@@ -65,19 +65,20 @@ void CShapeSelector::DrawSelection()
             
             m_canvas->DrawRectangle(m_selectionFrameParameters.topLeftCorner,
                 m_selectionFrameParameters.width + 14, m_selectionFrameParameters.height + 14,
-                OUTLINE_THINCENSS, sf::Color::Yellow, false);
+                sf::Color::Blue, sf::Color::Blue, OUTLINE_THINCENSS,  false
+                );
 
             m_canvas->DrawRectangle(topLeft, SIDE_OF_THE_SQUARE, SIDE_OF_THE_SQUARE,
-                OUTLINE_THINCENSS, sf::Color::Green, true);
+                sf::Color::Green, sf::Color::Green, OUTLINE_THINCENSS, true);
 
             m_canvas->DrawRectangle(topRight, SIDE_OF_THE_SQUARE, SIDE_OF_THE_SQUARE,
-                OUTLINE_THINCENSS, sf::Color::Green, true);
+                sf::Color::Green, sf::Color::Green, OUTLINE_THINCENSS,  true);
 
             m_canvas->DrawRectangle(bottomLeft, SIDE_OF_THE_SQUARE, SIDE_OF_THE_SQUARE,
-                OUTLINE_THINCENSS, sf::Color::Green, true);
+                sf::Color::Green, sf::Color::Green, OUTLINE_THINCENSS, true);
 
             m_canvas->DrawRectangle(bottomRight, SIDE_OF_THE_SQUARE, SIDE_OF_THE_SQUARE,
-                OUTLINE_THINCENSS, sf::Color::Green, true);
+                sf::Color::Green, sf::Color::Green, OUTLINE_THINCENSS, true);
         }
     }
 }

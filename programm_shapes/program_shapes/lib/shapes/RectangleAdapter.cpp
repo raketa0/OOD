@@ -25,7 +25,8 @@ double RectangleAdapter::Area()
 
 void RectangleAdapter::Draw()
 {
-	m_canvas->DrawRectangle(m_leftTopCorner, m_width, m_height);
+	m_canvas->DrawRectangle(m_leftTopCorner, m_width, m_height, 
+		m_fillColor, m_outlineColor, m_outlineThickness, true);
 }
 
 std::string RectangleAdapter::GetType()
@@ -63,6 +64,21 @@ bool RectangleAdapter::IsSelected()
 void RectangleAdapter::MoveShape(const Point& newPosition)
 {
 	m_leftTopCorner = newPosition;
+}
+
+void RectangleAdapter::ChangeFillColor(const sf::Color& color)
+{
+	m_fillColor = color;
+}
+
+void RectangleAdapter::ChangeOutlineColor(const sf::Color& color)
+{
+	m_outlineColor = color;
+}
+
+void RectangleAdapter::ChangeOutlineThickness(float thickness)
+{
+	m_outlineThickness = thickness;
 }
 
 

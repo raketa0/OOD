@@ -24,7 +24,8 @@ double CircleAdapter::Area()
 
 void CircleAdapter::Draw()
 {
-	m_canvas->DrawCircle(m_centerCircle, m_radius);
+	m_canvas->DrawCircle(m_centerCircle, m_radius,
+		m_fillColor, m_outlineColor, m_outlineThickness);
 }
 
 std::string CircleAdapter::GetType()
@@ -64,5 +65,20 @@ bool CircleAdapter::IsSelected()
 void CircleAdapter::MoveShape(const Point& newPosition)
 {
 	m_centerCircle = Point{ newPosition.x + m_radius, newPosition.y + m_radius };
+}
+
+void CircleAdapter::ChangeFillColor(const sf::Color& color)
+{
+	m_fillColor = color;
+}
+
+void CircleAdapter::ChangeOutlineColor(const sf::Color& color)
+{
+	m_outlineColor = color;
+}
+
+void CircleAdapter::ChangeOutlineThickness(float thickness)
+{
+	m_outlineThickness = thickness;
 }
 

@@ -33,7 +33,8 @@ double TriangleAdapter::Area()
 
 void TriangleAdapter::Draw()
 {
-	m_canvas->DrawTriangle(m_firstPoint, m_secondPoint, m_thirdPoint);
+	m_canvas->DrawTriangle(m_firstPoint, m_secondPoint, m_thirdPoint,
+		m_fillColor, m_outlineColor, m_outlineThickness);
 }
 
 std::string TriangleAdapter::GetType()
@@ -99,6 +100,21 @@ void TriangleAdapter::MoveShape(const Point& newPosition)
     m_secondPoint.y += deltaY;
     m_thirdPoint.x += deltaX;
 	m_thirdPoint.y += deltaY;
+}
+
+void TriangleAdapter::ChangeFillColor(const sf::Color& color)
+{
+	m_fillColor = color;
+}
+
+void TriangleAdapter::ChangeOutlineColor(const sf::Color& color)
+{
+	m_outlineColor = color;
+}
+
+void TriangleAdapter::ChangeOutlineThickness(float thickness)
+{
+	m_outlineThickness = thickness;
 }
 
 double TriangleAdapter::Distation(const Point& firstPoint, const Point& secondPoint)

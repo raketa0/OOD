@@ -140,3 +140,36 @@ std::map<int, std::shared_ptr<IShape>> CÑompositionShapes::GetSelectedShapes()
     }
 	return selectedShapes;
 }
+
+void CÑompositionShapes::ChangeFillColor(const sf::Color& color)
+{
+    for (auto& [id, shape] : m_shapes)
+    {
+        if (shape->IsSelected())
+        {
+            shape->ChangeFillColor(color);
+        }
+	}
+}
+
+void CÑompositionShapes::ChangeOutlineColor(const sf::Color& color)
+{
+    for (auto& [id, shape] : m_shapes)
+    {
+        if (shape->IsSelected())
+        {
+            shape->ChangeOutlineColor(color);
+        }
+	}
+}
+
+void CÑompositionShapes::ChangeOutlineThickness(float thickness)
+{
+    for (auto& [id, shape] : m_shapes)
+    {
+        if (shape->IsSelected())
+        {
+            shape->ChangeOutlineThickness(thickness);
+        }
+	}
+}

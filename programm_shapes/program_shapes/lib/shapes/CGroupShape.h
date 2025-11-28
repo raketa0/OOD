@@ -21,11 +21,17 @@ public:
     std::map<int, std::shared_ptr<IShape>> GetGroupedShapes();
 	void MoveShape(const Point& newPosition) override;
 
+	void ChangeFillColor(const sf::Color& color) override;
+	void ChangeOutlineColor(const sf::Color& color) override;
+	void ChangeOutlineThickness(float thickness) override;
+
 private:
     FrameParameters m_frameParameters = { {0, 0}, 0, 0 };
 
     bool m_selected = false;
     std::map<int, std::shared_ptr<IShape>> m_groupedShapes;
     std::shared_ptr<ICanvasSFML> m_canvas;
+
+
 
 };
