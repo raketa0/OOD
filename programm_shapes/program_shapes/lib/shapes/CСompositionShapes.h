@@ -30,6 +30,9 @@ public:
 	std::map<int, std::shared_ptr<IShape>> Get—ompositionShapes();
 	std::shared_ptr<IShape> FindShapeById(int id);
 	std::map<int, std::shared_ptr<IShape>> GetSelectedShapes();
+	void ChangeFillColor(const sf::Color& color) override;
+	void ChangeOutlineColor(const sf::Color& color) override;
+	void ChangeOutlineThickness(float thickness) override;
 private:
 	std::map<int, std::shared_ptr<IShape>> m_shapes;
 	std::shared_ptr<ICanvasSFML> m_canvas;

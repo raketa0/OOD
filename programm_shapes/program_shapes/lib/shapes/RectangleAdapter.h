@@ -23,6 +23,10 @@ public:
 	bool IsSelected() override;
 	void MoveShape(const Point& newPosition) override;
 
+	void ChangeFillColor(const sf::Color& color) override;
+	void ChangeOutlineColor(const sf::Color& color) override;
+	void ChangeOutlineThickness(float thickness) override;
+
 private:
 	Point m_leftTopCorner;
 	int m_width;
@@ -30,4 +34,8 @@ private:
 	std::string m_type;
 	std::shared_ptr<ICanvasSFML> m_canvas;
 	bool m_isSelected = false;
+
+	sf::Color m_fillColor = sf::Color::White;
+	sf::Color m_outlineColor = sf::Color::White;
+	float m_outlineThickness = DEFOLD_OUTLINE_THINCENSS;
 };

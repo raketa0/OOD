@@ -4,8 +4,8 @@
 
 const double PI = 3.1415;
 const double FIRST = 1.0;
-const unsigned int WINDOW_WIDTH = 800;
-const unsigned int WINDOW_HEIGHT = 600;
+const unsigned int WINDOW_WIDTH = 1000;
+const unsigned int WINDOW_HEIGHT = 800;
 const int NUM_POINTS_PER_TRIANGLE = 3;
 const int NUM_COORDS_PER_POINT = 2;
 const int TOTAL_COORDS = NUM_POINTS_PER_TRIANGLE * NUM_COORDS_PER_POINT;

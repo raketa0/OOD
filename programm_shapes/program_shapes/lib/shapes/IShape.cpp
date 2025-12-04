@@ -47,3 +47,15 @@ void IShape::MoveShape(const Point& newPosition)
 {
 }
 
+void IShape::ChangeFillColor(const sf::Color& color)
+{
+}
+
+void IShape::ChangeOutlineColor(const sf::Color& color)
+{
+}
+
+void IShape::ChangeOutlineThickness(float thickness)
+{
+}
+

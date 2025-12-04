@@ -20,5 +20,9 @@ public:
 	virtual std::map<int, std::shared_ptr<IShape>> GetGroupedShapes();
 	virtual void MoveShape(const Point& newPosition);
 
+	virtual void ChangeFillColor(const sf::Color& color);
+	virtual void ChangeOutlineColor(const sf::Color& color);
+	virtual void ChangeOutlineThickness(float thickness);
+
 };
 
