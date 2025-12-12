@@ -1,8 +1,8 @@
 #pragma once
 #include "ICommand.h"
 #include <memory>
-#include "../shapes/CÑompositionShapes.h"
-#include "../canvas/ICanvasSFML.h"
+#include "../../shapes/CÑompositionShapes.h"
+#include "../../canvas/ICanvasSFML.h"
 
 class AddCircleCommand : public ICommand 
 {

@@ -1,6 +1,6 @@
 #pragma once
 #include "ICommand.h"
-#include "../shapes/CÑompositionShapes.h"
+#include "../../shapes/CÑompositionShapes.h"
 #include <memory>
 #include <SFML/Graphics/Color.hpp>
 

@@ -1,33 +1,37 @@
 #include "Application.h"
+#include "../ToolBar/state/FillState.h"
+#include "../ToolBar/state/SelectState.h"
+#include "../ToolBar/ToolBar.h"
 
 Application& Application::GetApp()
 {
-    static Application instance;
-    return instance;
+    static Application app;
+    return app;
 }
 
 Application::Application()
-    : m_window(nullptr), m_canvas(nullptr), m_composition(nullptr), m_inputFile(INPUT_FILE)
+    : m_window(nullptr), m_canvas(nullptr), m_composition(nullptr)
 {
 }
 
-Application::~Application() = default;
-
-
 void Application::Init(const std::string& inputFile)
 {
-    m_inputFile = inputFile;
+    if (!inputFile.empty())
+        m_inputFile = inputFile;
+
     InitWindow();
     InitCanvas();
     InitComposition();
     InitInteractive();
+    InitToolBar();
+    SetState(m_appState);
 }
 
 void Application::InitWindow()
 {
     setlocale(LC_ALL, LOCALE_RU);
     m_window = std::make_unique<sf::RenderWindow>(sf::VideoMode({ WINDOW_WIDTH, WINDOW_HEIGHT }), WINDOW_TITLE);
-    m_window->clear(sf::Color::White);
+    m_window->clear(sf::Color::Blue);
 }
 
 void Application::InitCanvas()
@@ -38,8 +42,10 @@ void Application::InitCanvas()
 void Application::InitComposition()
 {
     m_composition = std::make_shared<CÑompositionShapes>(m_canvas);
-    m_composition->LoadFromFile(m_inputFile);
-    m_composition->OutCharacteristics();
+    if (!m_inputFile.empty())
+    {
+        m_composition->LoadFromFile(m_inputFile);
+    }
 }
 
 void Application::InitInteractive()
@@ -48,66 +54,90 @@ void Application::InitInteractive()
     m_dragger = std::make_unique<CShapeDraggerMove>(m_composition, *m_selector);
 }
 
+void Application::InitToolBar()
+{
+    m_toolbar = std::make_unique<ToolBar>(*m_window);
+    m_toolbar->SetupDefaultButtons();
+}
+
+sf::RenderWindow& Application::GetWindow()
+{
+    return *m_window;
+}
+
+std::shared_ptr<CCanvasSFML> Application::GetCanvas()
+{
+    return m_canvas;
+}
+
+std::shared_ptr<CÑompositionShapes> Application::GetComposition()
+{
+    return m_composition;
+}
+
+std::unique_ptr<CShapeSelector>& Application::GetSelector()
+{
+    return m_selector;
+}
+
+std::unique_ptr<CShapeDraggerMove>& Application::GetDragger()
+{
+    return m_dragger;
+}
+
+void Application::SetState(State newState)
+{
+    if (newState == SELECT)
+    {
+		m_appState = SELECT;
+		m_currentState = std::make_shared<SelectState>();
+	}
+    else if (newState == FILL)
+    {
+		m_appState = FILL;
+		m_currentState = std::make_shared<FillState>(m_composition->GetFillColor(), 
+            m_composition->GetOutlineColor(), m_composition->GetOutlineThickness());
+    }
+}
+
+std::shared_ptr<IState> Application::GetState()
+{
+    return m_currentState;
+}
+
+
 void Application::Run()
 {
-    if (!m_window) Init(m_inputFile);
+    if (!m_window)
+    {
+        Init(m_inputFile);
+    }
+
 
     while (m_window->isOpen())
     {
-        while (const auto event = m_window->pollEvent())
+        while (auto eventOpt = m_window->pollEvent())
         {
-            if (event->is<sf::Event::Closed>())
+            sf::Event& event = *eventOpt;
+
+            if (event.is<sf::Event::Closed>())
             {
                 m_window->close();
             }
-            else if (event->is<sf::Event::MouseButtonPressed>())
-            {
-                if (const auto* mouseEvent = event->getIf<sf::Event::MouseButtonPressed>())
-                {
-                    if (mouseEvent->button == sf::Mouse::Button::Left)
-                    {
-                        sf::Vector2i mousePosition = sf::Mouse::getPosition(*m_window);
-                        bool isShiftPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LShift)
-                            || sf::Keyboard::isKeyPressed(sf::Keyboard::Key::RShift);
-                        m_selector->OnClick(mousePosition, isShiftPressed);
-                        m_dragger->StartDrag(mousePosition);
-                    }
-                }
-            }
-            else if (event->is<sf::Event::MouseMoved>())
-            {
-                sf::Vector2i mousePosition = sf::Mouse::getPosition(*m_window);
-                m_dragger->OnMouseMoved(mousePosition);
-            }
-            else if (event->is<sf::Event::MouseButtonReleased>())
-            {
-                if (const auto* mouseEvent = event->getIf<sf::Event::MouseButtonReleased>())
-                {
-                    if (mouseEvent->button == sf::Mouse::Button::Left)
-                    {
-                        m_dragger->EndDrag();
-                    }
-                }
-            }
-            else if (event->is<sf::Event::KeyPressed>())
-            {
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LControl) &&
-                    sf::Keyboard::isKeyPressed(sf::Keyboard::Key::G))
-                {
-                    m_selector->GroupSelectedShapes();
-                }
 
-                if (sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LControl) &&
-                    sf::Keyboard::isKeyPressed(sf::Keyboard::Key::U))
-                {
-                    m_selector->UngroupSelectedShape();
-                }
+            bool handledByToolbar = m_toolbar->HandleEvent(event);
+
+            if (!handledByToolbar && m_currentState)
+            {
+                m_currentState->HandleEvent(event);
             }
         }
 
         m_window->clear(sf::Color::Black);
 
+
         m_composition->Draw();
+        m_toolbar->Draw();
         m_selector->DrawSelection();
         m_window->display();
     }

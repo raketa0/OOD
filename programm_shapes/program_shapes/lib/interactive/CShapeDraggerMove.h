@@ -10,8 +10,8 @@ class CShapeDraggerMove
 public:
     CShapeDraggerMove(std::shared_ptr<CÑompositionShapes> composition, CShapeSelector& selector);
 
-    void StartDrag(sf::Vector2i& mousePosition);
-    void OnMouseMoved(sf::Vector2i& mousePosition);
+    void StartDrag(const sf::Vector2i& mousePosition);
+    void OnMouseMoved(const sf::Vector2i& mousePosition);
     void EndDrag();
 
 private:

@@ -1,7 +1,6 @@
 #pragma once
 #include "ICommand.h"
-#include "../shapes/CÑompositionShapes.h"
-#include <memory>
+#include "../../shapes/CÑompositionShapes.h"
 #include <SFML/Graphics/Color.hpp>
 
 class ChangeOutlineColorCommand : public ICommand

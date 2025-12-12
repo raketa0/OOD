@@ -150,6 +150,7 @@ void CÑompositionShapes::ChangeFillColor(const sf::Color& color)
             shape->ChangeFillColor(color);
         }
 	}
+	m_fillColor = color;
 }
 
 void CÑompositionShapes::ChangeOutlineColor(const sf::Color& color)
@@ -161,6 +162,7 @@ void CÑompositionShapes::ChangeOutlineColor(const sf::Color& color)
             shape->ChangeOutlineColor(color);
         }
 	}
+	m_outlineColor = color;
 }
 
 void CÑompositionShapes::ChangeOutlineThickness(float thickness)
@@ -172,4 +174,5 @@ void CÑompositionShapes::ChangeOutlineThickness(float thickness)
             shape->ChangeOutlineThickness(thickness);
         }
 	}
+	m_outlineThickness = thickness;
 }

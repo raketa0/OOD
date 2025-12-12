@@ -9,7 +9,7 @@ CShapeDraggerMove::CShapeDraggerMove(std::shared_ptr<CÑompositionShapes> composi
 	assert(&m_selector);
 }
 
-void CShapeDraggerMove::StartDrag(sf::Vector2i& mousePosition)
+void CShapeDraggerMove::StartDrag(const sf::Vector2i& mousePosition)
 {
 	if (m_composition->GetSelectedShapes().empty())
 	{
@@ -20,7 +20,7 @@ void CShapeDraggerMove::StartDrag(sf::Vector2i& mousePosition)
 	m_dragOffset = mousePosition; 
 }
 
-void CShapeDraggerMove::OnMouseMoved(sf::Vector2i& mousePosition)
+void CShapeDraggerMove::OnMouseMoved(const sf::Vector2i& mousePosition)
 {
 	if (!m_isDragging)
 	{

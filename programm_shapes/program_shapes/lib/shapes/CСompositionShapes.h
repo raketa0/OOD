@@ -33,8 +33,14 @@ public:
 	void ChangeFillColor(const sf::Color& color) override;
 	void ChangeOutlineColor(const sf::Color& color) override;
 	void ChangeOutlineThickness(float thickness) override;
+	sf::Color GetFillColor() const { return m_fillColor; }
+	sf::Color GetOutlineColor() const { return m_outlineColor; }
+	float GetOutlineThickness() const { return m_outlineThickness; }
 private:
 	std::map<int, std::shared_ptr<IShape>> m_shapes;
 	std::shared_ptr<ICanvasSFML> m_canvas;
 	int m_curentShapeId;
+	sf::Color m_fillColor = sf::Color::Red;
+	sf::Color m_outlineColor = sf::Color::Black;
+	float m_outlineThickness = 2.f;
 };
