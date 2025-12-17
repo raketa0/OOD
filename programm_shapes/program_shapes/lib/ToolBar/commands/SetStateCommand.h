@@ -9,7 +9,7 @@
 class SetStateCommand : public ICommand
 {
 public:
-    SetStateCommand(Application& app, State& state);
+    SetStateCommand(Application& app, State state);
 
     void Execute() override;
 

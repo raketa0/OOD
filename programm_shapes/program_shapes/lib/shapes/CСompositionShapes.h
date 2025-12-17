@@ -30,9 +30,12 @@ public:
 	std::map<int, std::shared_ptr<IShape>> Get—ompositionShapes();
 	std::shared_ptr<IShape> FindShapeById(int id);
 	std::map<int, std::shared_ptr<IShape>> GetSelectedShapes();
-	void ChangeFillColor(const sf::Color& color) override;
-	void ChangeOutlineColor(const sf::Color& color) override;
-	void ChangeOutlineThickness(float thickness) override;
+	void ChangeFillColor(const sf::Color& color);
+	void ChangeOutlineColor(const sf::Color& color);
+	void ChangeOutlineThickness(float thickness);
+	void ApplyFill(sf::Vector2i pos);
+	void ApplyOutlineColor(sf::Vector2i pos);
+	void ApplyOutlineThickness(sf::Vector2i pos);
 	sf::Color GetFillColor() const { return m_fillColor; }
 	sf::Color GetOutlineColor() const { return m_outlineColor; }
 	float GetOutlineThickness() const { return m_outlineThickness; }

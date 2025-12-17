@@ -2,7 +2,7 @@
 #include "../ToolBar/state/FillState.h"
 #include "../ToolBar/state/SelectState.h"
 #include "../ToolBar/ToolBar.h"
-
+// соглашение об именах
 Application& Application::GetApp()
 {
     static Application app;
@@ -56,7 +56,7 @@ void Application::InitInteractive()
 
 void Application::InitToolBar()
 {
-    m_toolbar = std::make_unique<ToolBar>(*m_window);
+    m_toolbar = std::make_shared<ToolBar>(*m_window);
     m_toolbar->SetupDefaultButtons();
 }
 
@@ -89,14 +89,18 @@ void Application::SetState(State newState)
 {
     if (newState == SELECT)
     {
-		m_appState = SELECT;
-		m_currentState = std::make_shared<SelectState>();
-	}
+        m_appState = SELECT;
+        m_currentState = std::make_shared<SelectState>();
+    }
     else if (newState == FILL)
     {
-		m_appState = FILL;
-		m_currentState = std::make_shared<FillState>(m_composition->GetFillColor(), 
-            m_composition->GetOutlineColor(), m_composition->GetOutlineThickness());
+        m_appState = FILL;
+
+        m_currentState = std::make_shared<FillState>(
+            m_composition->GetFillColor(),
+            m_composition->GetOutlineColor(),
+            m_composition->GetOutlineThickness()
+        );
     }
 }
 
@@ -119,11 +123,6 @@ void Application::Run()
         while (auto eventOpt = m_window->pollEvent())
         {
             sf::Event& event = *eventOpt;
-
-            if (event.is<sf::Event::Closed>())
-            {
-                m_window->close();
-            }
 
             bool handledByToolbar = m_toolbar->HandleEvent(event);
 

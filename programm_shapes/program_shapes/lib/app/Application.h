@@ -27,6 +27,7 @@ public:
     std::shared_ptr<CÑompositionShapes> GetComposition();
     std::unique_ptr<CShapeSelector>& GetSelector();
     std::unique_ptr<CShapeDraggerMove>& GetDragger();
+    std::shared_ptr<IToolBar> GetToolbar() { return m_toolbar; }
 
     void SetState(State newState);
     std::shared_ptr<IState> GetState();
@@ -51,8 +52,8 @@ private:
     std::shared_ptr<CÑompositionShapes> m_composition;
     std::unique_ptr<CShapeSelector> m_selector;
     std::unique_ptr<CShapeDraggerMove> m_dragger;
-    std::unique_ptr<IToolBar> m_toolbar;
+    std::shared_ptr<IToolBar> m_toolbar;
     std::shared_ptr<IState> m_currentState;
 	State m_appState = State::SELECT;
-    std::string m_inputFile = "input.txt";
+    std::string m_inputFile = INPUT_FILE;
 };

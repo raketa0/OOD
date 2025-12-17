@@ -1,4 +1,5 @@
 #include "CButton.h"
+#include "../../tools/Constants.h"
 
 
 Button::Button(sf::Vector2f& size,
@@ -18,21 +19,21 @@ void Button::SetupShape(sf::Vector2f& size, sf::Vector2f& position)
 {
     m_rect.setSize(size);
     m_rect.setPosition(position);
-    m_rect.setFillColor(sf::Color(200, 200, 200));
-    m_rect.setOutlineThickness(1.f);
+    m_rect.setFillColor(sf::Color(BUTTON_FILL_R, BUTTON_FILL_G, BUTTON_FILL_B));
+    m_rect.setOutlineThickness(OUTLINE_THICKNESS);
     m_rect.setOutlineColor(sf::Color::Black);
 }
 
 
 sf::Text Button::SetupText(std::string& label, sf::Vector2f& size, sf::Vector2f& position)
 {
-    m_font.openFromFile("Arial.ttf");
-    sf::Text text = sf::Text(m_font, label, 14);
+    m_font.openFromFile(FONT_PATH);
+    sf::Text text = sf::Text(m_font, label, TEXT_CHARACTER_SIZE);
     text.setFillColor(sf::Color::Black);
 
     sf::FloatRect bounds = text.getLocalBounds();
-    float x = m_position.x + 8.f;
-    float y = m_position.y + (m_size.y - bounds.size.y) / 2.0f - bounds.position.y;
+    float x = m_position.x + TEXT_LEFT_PADDING;
+    float y = m_position.y + (m_size.y - bounds.size.y) / DEL_ONE - bounds.position.y;
 
     text.setPosition(sf::Vector2f(x, y)); 
 
@@ -41,7 +42,10 @@ sf::Text Button::SetupText(std::string& label, sf::Vector2f& size, sf::Vector2f&
 
 void Button::Draw(sf::RenderWindow& window)
 {
-    m_rect.setOutlineColor(m_isActive ? sf::Color::Red : sf::Color::Black);
+    if (m_isActive)
+        m_rect.setOutlineColor(sf::Color::Red);
+    else
+        m_rect.setOutlineColor(sf::Color::Black);
     window.draw(m_rect);
     window.draw(m_text);
 }

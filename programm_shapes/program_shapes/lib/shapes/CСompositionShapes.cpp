@@ -8,9 +8,10 @@
 #include <string>
 #include <cassert>
 
-CÑompositionShapes::CÑompositionShapes(std::shared_ptr<ICanvasSFML> canvas, int curentShapeId) 
+CÑompositionShapes::CÑompositionShapes(std::shared_ptr<ICanvasSFML> canvas, int curentShapeId)
     : m_canvas(std::move(canvas)),
 	m_curentShapeId(curentShapeId)
+	
 {
     assert(m_canvas);
 }
@@ -143,36 +144,48 @@ std::map<int, std::shared_ptr<IShape>> CÑompositionShapes::GetSelectedShapes()
 
 void CÑompositionShapes::ChangeFillColor(const sf::Color& color)
 {
-    for (auto& [id, shape] : m_shapes)
-    {
-        if (shape->IsSelected())
-        {
-            shape->ChangeFillColor(color);
-        }
-	}
 	m_fillColor = color;
 }
 
 void CÑompositionShapes::ChangeOutlineColor(const sf::Color& color)
 {
-    for (auto& [id, shape] : m_shapes)
-    {
-        if (shape->IsSelected())
-        {
-            shape->ChangeOutlineColor(color);
-        }
-	}
 	m_outlineColor = color;
 }
 
 void CÑompositionShapes::ChangeOutlineThickness(float thickness)
 {
+	m_outlineThickness = thickness;
+}
+
+void CÑompositionShapes::ApplyFill(sf::Vector2i pos)
+{
     for (auto& [id, shape] : m_shapes)
     {
-        if (shape->IsSelected())
+        if (shape->IsClick(pos))
         {
-            shape->ChangeOutlineThickness(thickness);
+            shape->ChangeFillColor(m_fillColor);
         }
-	}
-	m_outlineThickness = thickness;
+    }
+}
+
+void CÑompositionShapes::ApplyOutlineColor(sf::Vector2i pos)
+{
+    for (auto& [id, shape] : m_shapes)
+    {
+        if (shape->IsClick(pos))
+        {
+            shape->ChangeOutlineColor(m_outlineColor);
+        }
+    }
+}
+
+void CÑompositionShapes::ApplyOutlineThickness(sf::Vector2i pos)
+{
+    for (auto& [id, shape] : m_shapes)
+    {
+        if (shape->IsClick(pos))
+        {
+            shape->ChangeOutlineThickness(m_outlineThickness);
+        }
+    }
 }

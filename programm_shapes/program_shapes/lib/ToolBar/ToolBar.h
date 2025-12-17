@@ -17,6 +17,7 @@ public:
     void Draw() override;
     bool HandleEvent(sf::Event& event) override;
     void InitPanelArea() override;
+    std::vector<std::shared_ptr<Button>> GetButtons() override { return m_buttons; } ;
 
 private:
     const float X = 10.f;
@@ -34,5 +35,5 @@ private:
     std::vector<std::shared_ptr<Button>> m_buttons;
 
     void AddButton(sf::Vector2f& size, sf::Vector2f& position,
-        std::string& label, std::shared_ptr<ICommand> command);
+        std::string label, std::shared_ptr<ICommand> command);
 };

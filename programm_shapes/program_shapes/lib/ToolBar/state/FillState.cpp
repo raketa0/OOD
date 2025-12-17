@@ -1,23 +1,14 @@
 #include "FillState.h"
 
 FillState::FillState(sf::Color fillColor, sf::Color outlineColor, float outlineThickness)
-    : m_fillColor(fillColor),
-    m_outlineColor(outlineColor), 
-    m_outlineThickness(outlineThickness)
-{
-}
+    : m_fillColor(fillColor), m_outlineColor(outlineColor), m_outlineThickness(outlineThickness) {}
 
 void FillState::OnMouseButtonPressed(sf::Event& event)
 {
-    if (!event.is<sf::Event::MouseButtonPressed>())
-        return;
+    if (!event.is<sf::Event::MouseButtonPressed>()) return;
 
     const auto* mouseEvent = event.getIf<sf::Event::MouseButtonPressed>();
-
-    if (!mouseEvent || mouseEvent->button != sf::Mouse::Button::Left)
-    {
-		return;
-    }
+    if (!mouseEvent || mouseEvent->button != sf::Mouse::Button::Left) return;
 
     sf::Vector2i clickPos = mouseEvent->position;
 
@@ -25,9 +16,9 @@ void FillState::OnMouseButtonPressed(sf::Event& event)
     {
         if (shape && shape->IsClick(clickPos))
         {
-            m_composition->ChangeFillColor(m_fillColor);
-            m_composition->ChangeOutlineColor(m_outlineColor);
-            m_composition->ChangeOutlineThickness(m_outlineThickness);
+            m_composition->ApplyFill(clickPos);
+            m_composition->ApplyOutlineColor(clickPos);
+            m_composition->ApplyOutlineThickness(clickPos);
             break;
         }
     }

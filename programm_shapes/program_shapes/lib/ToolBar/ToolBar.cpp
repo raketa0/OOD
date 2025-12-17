@@ -6,16 +6,34 @@
 #include "commands/ChangeOutlineColorCommand.h"
 #include "commands/SetStateCommand.h"
 #include "commands/ChangeOutlineThicknessCommand.h"
+#include "../tools/Constants.h"
+
+std::string LABEL_RECTANGLE = "Rectangle";
+std::string LABEL_TRIANGLE = "Triangle";
+std::string LABEL_CIRCLE = "Circle";
+
+std::string LABEL_FILL_RED = "Fill Red";
+std::string LABEL_FILL_GREEN = "Fill Green";
+std::string LABEL_FILL_BLUE = "Fill Blue";
+
+std::string LABEL_OUTLINE_RED = "Outline Red";
+std::string LABEL_OUTLINE_GREEN = "Outline Green";
+std::string LABEL_OUTLINE_BLUE = "Outline Blue";
+
+std::string LABEL_SELECT = "Select";
+std::string LABEL_FILL = "Fill";
+
+std::string LABEL_OUTLINE_1 = "Outline 1";
+std::string LABEL_OUTLINE_3 = "Outline 3";
+std::string LABEL_OUTLINE_5 = "Outline 5";
 
 ToolBar::ToolBar(sf::RenderWindow& window)
     : m_window(window)
 {
-    InitPanelArea();
 }
 
-
 void ToolBar::AddButton(sf::Vector2f& size, sf::Vector2f& position,
-    std::string& label, std::shared_ptr<ICommand> command)
+    std::string label, std::shared_ptr<ICommand> command)
 {
     auto button = std::make_shared<Button>(size, position, label, command);
     m_buttons.push_back(button);
@@ -23,109 +41,98 @@ void ToolBar::AddButton(sf::Vector2f& size, sf::Vector2f& position,
 
 void ToolBar::InitPanelArea()
 {
-    m_area = sf::FloatRect({ X, Y }, { WIDTH, HEIGHT });
-
-    m_background.setPosition({ X, Y });
-    m_background.setSize({ WIDTH, HEIGHT });
+    m_area = sf::FloatRect({ PANEL_X, PANEL_Y }, { PANEL_WIDTH, PANEL_HEIGHT });
+    m_background.setPosition({ PANEL_X, PANEL_Y });
+    m_background.setSize({ PANEL_WIDTH, PANEL_HEIGHT });
     m_background.setFillColor(sf::Color(230, 230, 230));
     m_background.setOutlineColor(sf::Color::Black);
     m_background.setOutlineThickness(1.f);
 }
 
-
-
 void ToolBar::SetupDefaultButtons()
 {
     m_buttons.clear();
 
-    float startX = 10.f;
-    float y = 10.f;
-    float width = 100.f;
-    float height = 34.f;
-    float margin = 6.f;
+    float x = BTN_START_X;
+    float y = BTN_START_Y;
+    sf::Vector2f size(BTN_WIDTH, BTN_HEIGHT);
 
-    float x = startX;
-
-    // Размер кнопки
-    sf::Vector2f size(width, height);
-
-    // Rectangle
     sf::Vector2f position(x, y);
-    std::string label = "Rectangle";
-    FrameParameters rectFrame = { {0, 0}, 50, 50 }; // примерные параметры прямоугольника
-    AddButton(size, position, label,
-        std::make_shared<AddRectangleCommand>(m_app.GetComposition(), m_app.GetCanvas(), rectFrame));
-    x += width + margin;
+    AddButton(size, position, LABEL_RECTANGLE,
+        std::make_shared<AddRectangleCommand>(m_app.GetComposition(), m_app.GetCanvas(),
+            FrameParameters{ {DEFAULT_RECT_X, DEFAULT_RECT_Y}, 50, 50 }));
+    x += BTN_WIDTH + BTN_MARGIN;
 
-    // Triangle
     position = sf::Vector2f(x, y);
-    label = "Triangle";
-    Point p1 = { 0,0 }, p2 = { 50,0 }, p3 = { 25,50 }; // примерные точки треугольника
-    AddButton(size, position, label,
-        std::make_shared<AddTriangleCommand>(m_app.GetComposition(), m_app.GetCanvas(), p1, p2, p3));
-    x += width + margin;
+    AddButton(size, position, LABEL_TRIANGLE,
+        std::make_shared<AddTriangleCommand>(m_app.GetComposition(), m_app.GetCanvas(),
+            Point{ DEFAULT_TRIANGLE_P1X, DEFAULT_TRIANGLE_P1Y },
+            Point{ DEFAULT_TRIANGLE_P2X, DEFAULT_TRIANGLE_P2Y },
+            Point{ DEFAULT_TRIANGLE_P3X, DEFAULT_TRIANGLE_P3Y }));
+    x += BTN_WIDTH + BTN_MARGIN;
 
-    // Circle
     position = sf::Vector2f(x, y);
-    label = "Circle";
-    Point center = { 25,25 }; // центр круга
-    int radius = 25;        // радиус круга
-    AddButton(size, position, label,
-        std::make_shared<AddCircleCommand>(m_app.GetComposition(), m_app.GetCanvas(), center, radius));
-    x += width + margin;
+    AddButton(size, position, LABEL_CIRCLE,
+        std::make_shared<AddCircleCommand>(m_app.GetComposition(), m_app.GetCanvas(),
+            Point{ DEFAULT_CIRCLE_X, DEFAULT_CIRCLE_Y },
+            DEFAULT_CIRCLE_RADIUS));
+    x += BTN_WIDTH + BTN_MARGIN;
 
-    // Fill Color
     position = sf::Vector2f(x, y);
-    label = "Fill Color";
-    AddButton(size, position, label,
+    AddButton(size, position, LABEL_FILL_RED,
+        std::make_shared<ChangeFillColorCommand>(m_app.GetComposition(), sf::Color::Red));
+    x += BTN_WIDTH + BTN_MARGIN;
+
+    position = sf::Vector2f(x, y);
+    AddButton(size, position, LABEL_FILL_GREEN,
         std::make_shared<ChangeFillColorCommand>(m_app.GetComposition(), sf::Color::Green));
-    x += width + margin;
+    x += BTN_WIDTH + BTN_MARGIN;
 
-    // Outline Color
     position = sf::Vector2f(x, y);
-    label = "Outline Color";
-    AddButton(size, position, label,
+    AddButton(size, position, LABEL_FILL_BLUE,
+        std::make_shared<ChangeFillColorCommand>(m_app.GetComposition(), sf::Color::Blue));
+    x += BTN_WIDTH + BTN_MARGIN;
+
+    position = sf::Vector2f(x, y);
+    AddButton(size, position, LABEL_OUTLINE_RED,
         std::make_shared<ChangeOutlineColorCommand>(m_app.GetComposition(), sf::Color::Red));
-    x += width + margin;
+    x += BTN_WIDTH + BTN_MARGIN;
 
-    // Select
     position = sf::Vector2f(x, y);
-    label = "Select";
-	State state = SELECT;
-    AddButton(size, position, label,
-        std::make_shared<SetStateCommand>(m_app, state));
-    x += width + margin;
+    AddButton(size, position, LABEL_OUTLINE_GREEN,
+        std::make_shared<ChangeOutlineColorCommand>(m_app.GetComposition(), sf::Color::Green));
+    x += BTN_WIDTH + BTN_MARGIN;
 
-    // Fill
     position = sf::Vector2f(x, y);
-    label = "Fill";
-	state = FILL;
-    AddButton(size, position, label,
-        std::make_shared<SetStateCommand>(m_app, state));
-    x += width + margin;
+    AddButton(size, position, LABEL_OUTLINE_BLUE,
+        std::make_shared<ChangeOutlineColorCommand>(m_app.GetComposition(), sf::Color::Blue));
+    x += BTN_WIDTH + BTN_MARGIN;
 
-    // Outline 1
     position = sf::Vector2f(x, y);
-    label = "Outline 1";
-    AddButton(size, position, label,
-        std::make_shared<ChangeOutlineThicknessCommand>(m_app.GetComposition(), 1.f));
-    x += width + margin;
+    AddButton(size, position, LABEL_SELECT,
+        std::make_shared<SetStateCommand>(m_app, SELECT));
+    x += BTN_WIDTH + BTN_MARGIN;
 
-    // Outline 3
     position = sf::Vector2f(x, y);
-    label = "Outline 3";
-    AddButton(size, position, label,
-        std::make_shared<ChangeOutlineThicknessCommand>(m_app.GetComposition(), 3.f));
-    x += width + margin;
+    AddButton(size, position, LABEL_FILL,
+        std::make_shared<SetStateCommand>(m_app, FILL));
+    x += BTN_WIDTH + BTN_MARGIN;
 
-    // Outline 5
     position = sf::Vector2f(x, y);
-    label = "Outline 5";
-    AddButton(size, position, label,
-        std::make_shared<ChangeOutlineThicknessCommand>(m_app.GetComposition(), 5.f));
-    x += width + margin;
+    AddButton(size, position, LABEL_OUTLINE_1,
+        std::make_shared<ChangeOutlineThicknessCommand>(m_app.GetComposition(), THICKNESS_1));
+    x += BTN_WIDTH + BTN_MARGIN;
+
+    position = sf::Vector2f(x, y);
+    AddButton(size, position, LABEL_OUTLINE_3,
+        std::make_shared<ChangeOutlineThicknessCommand>(m_app.GetComposition(), THICKNESS_3));
+    x += BTN_WIDTH + BTN_MARGIN;
+
+    position = sf::Vector2f(x, y);
+    AddButton(size, position, LABEL_OUTLINE_5,
+        std::make_shared<ChangeOutlineThicknessCommand>(m_app.GetComposition(), THICKNESS_5));
+    x += BTN_WIDTH + BTN_MARGIN;
 }
-
 
 void ToolBar::Draw()
 {
@@ -138,21 +145,27 @@ bool ToolBar::HandleEvent(sf::Event& event)
 {
     if (auto mouse = event.getIf<sf::Event::MouseButtonPressed>())
     {
-        if (mouse->button == sf::Mouse::Button::Left)
-        {
-            sf::Vector2f clickPos = m_window.mapPixelToCoords(mouse->position);
+        if (mouse->button != sf::Mouse::Button::Left)
+            return false;
 
-            for (auto& btn : m_buttons)
+        sf::Vector2f clickPos = m_window.mapPixelToCoords(mouse->position);
+
+        for (auto& btn : m_buttons)
+        {
+            if (btn->Contains(clickPos))
             {
-                if (btn->Contains(clickPos))
+                if (btn->GetLabel() == LABEL_SELECT || btn->GetLabel() == LABEL_FILL)
                 {
                     for (auto& b : m_buttons)
-                        b->SetActive(false);
-
+                    {
+                        if (b->GetLabel() == LABEL_SELECT || b->GetLabel() == LABEL_FILL)
+                            b->SetActive(false);
+                    }
                     btn->SetActive(true);
-                    btn->Execute();
-                    return true;
                 }
+
+                btn->Execute();
+                return true;
             }
         }
     }

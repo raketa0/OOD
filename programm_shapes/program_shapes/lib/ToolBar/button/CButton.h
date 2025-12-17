@@ -15,6 +15,7 @@ public:
 
     void SetActive(bool active);
     bool IsActive();
+    std::string GetLabel() const { return m_label; }
 
     void Execute();
 
