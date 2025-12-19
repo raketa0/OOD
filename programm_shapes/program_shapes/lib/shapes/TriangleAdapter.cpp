@@ -1,6 +1,5 @@
 #include "TriangleAdapter.h"
 #include <cassert>
-#include "../memento/TriangleMemento.h"
 
 TriangleAdapter::TriangleAdapter(Point firstPoint, Point secondPoint,
 	Point thirdPoint, std::string type,

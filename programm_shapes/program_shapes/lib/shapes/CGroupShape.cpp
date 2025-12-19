@@ -1,5 +1,4 @@
 #include "CGroupShape.h"
-#include "../memento/GroupShapesMemento.h"
 
 CGroupShape::CGroupShape(std::map<int, std::shared_ptr<IShape>> groupedShapes,
 	std::shared_ptr<ICanvasSFML> canvas):

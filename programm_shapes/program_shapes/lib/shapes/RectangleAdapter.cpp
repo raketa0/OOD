@@ -1,6 +1,5 @@
 #include "RectangleAdapter.h"
 #include <cassert>
-#include "../memento/RectangleMemento.h"
 
 RectangleAdapter::RectangleAdapter(Point leftTopCorner, int width,
 	int height, std::string type,

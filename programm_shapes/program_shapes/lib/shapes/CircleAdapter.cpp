@@ -1,7 +1,6 @@
 #include "CircleAdapter.h"
 #include <string>
 #include <cassert>
-#include "../memento/CircleMemento.h"
 
 CircleAdapter::CircleAdapter(Point centerCircle, int radius,
 	std::string type, std::shared_ptr<ICanvasSFML> canvas) :
