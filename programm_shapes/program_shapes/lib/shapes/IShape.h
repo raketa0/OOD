@@ -3,6 +3,7 @@
 #include <string>
 #include "../tools/ShapesStruct.h"
 #include <map>
+#include "../memento/IMementoShapes.h"
 class IShape
 {
 public:
@@ -19,10 +20,13 @@ public:
 	virtual bool IsGroup();
 	virtual std::map<int, std::shared_ptr<IShape>> GetGroupedShapes();
 	virtual void MoveShape(const Point& newPosition);
-
+	virtual sf::Color GetFillColor();
+	virtual sf::Color GetOutlineColor();
+	virtual float GetOutlineThickness();
 	virtual void ChangeFillColor(const sf::Color& color);
 	virtual void ChangeOutlineColor(const sf::Color& color);
 	virtual void ChangeOutlineThickness(float thickness);
 
+	virtual std::shared_ptr<IShape> CreateMemento();
 };
 

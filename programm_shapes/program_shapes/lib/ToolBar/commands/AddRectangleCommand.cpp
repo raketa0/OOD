@@ -1,4 +1,5 @@
 #include "AddRectangleCommand.h"
+#include "../../memento/HistoryShapes.h"
 
 AddRectangleCommand::AddRectangleCommand(std::shared_ptr<CÑompositionShapes> composition,
 	std::shared_ptr<ICanvasSFML> canvas, 
@@ -11,6 +12,8 @@ AddRectangleCommand::AddRectangleCommand(std::shared_ptr<CÑompositionShapes> com
 
 void AddRectangleCommand::Execute()
 {
+	HistoryShapes::GetInstance().AddMemento(m_composition->CreateMement());
+
 	auto rectange = std::make_shared<RectangleAdapter>(
 		m_parameters.topLeftCorner,
 		m_parameters.width,

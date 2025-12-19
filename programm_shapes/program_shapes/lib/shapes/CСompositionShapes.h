@@ -39,6 +39,8 @@ public:
 	sf::Color GetFillColor() const { return m_fillColor; }
 	sf::Color GetOutlineColor() const { return m_outlineColor; }
 	float GetOutlineThickness() const { return m_outlineThickness; }
+	std::shared_ptr<IMementoShapes> CreateMement();
+	void SetCompositionShapes(std::map<int, std::shared_ptr<IShape>>& shapes);
 private:
 	std::map<int, std::shared_ptr<IShape>> m_shapes;
 	std::shared_ptr<ICanvasSFML> m_canvas;

@@ -2,7 +2,6 @@
 #include "../ToolBar/state/FillState.h"
 #include "../ToolBar/state/SelectState.h"
 #include "../ToolBar/ToolBar.h"
-// соглашение об именах
 Application& Application::GetApp()
 {
     static Application app;
@@ -85,6 +84,11 @@ std::unique_ptr<CShapeDraggerMove>& Application::GetDragger()
     return m_dragger;
 }
 
+std::shared_ptr<IToolBar> Application::GetToolbar()
+{
+    return m_toolbar;
+}
+
 void Application::SetState(State newState)
 {
     if (newState == SELECT)
@@ -107,6 +111,21 @@ void Application::SetState(State newState)
 std::shared_ptr<IState> Application::GetState()
 {
     return m_currentState;
+}
+
+State& Application::GetAppState()
+{
+    return m_appState;
+}
+
+void Application::Undo()
+{
+    HistoryShapes::GetInstance().Undo();
+}
+
+void Application::Redo()
+{
+    HistoryShapes::GetInstance().Redo();
 }
 
 

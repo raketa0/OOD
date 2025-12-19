@@ -47,6 +47,21 @@ void IShape::MoveShape(const Point& newPosition)
 {
 }
 
+sf::Color IShape::GetFillColor()
+{
+	return sf::Color();
+}
+
+sf::Color IShape::GetOutlineColor()
+{
+	return sf::Color();
+}
+
+float IShape::GetOutlineThickness()
+{
+	return 0.0f;
+}
+
 void IShape::ChangeFillColor(const sf::Color& color)
 {
 }
@@ -59,3 +74,7 @@ void IShape::ChangeOutlineThickness(float thickness)
 {
 }
 
+std::shared_ptr<IShape> IShape::CreateMemento()
+{
+	return nullptr;
+}

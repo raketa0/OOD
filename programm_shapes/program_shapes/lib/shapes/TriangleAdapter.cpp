@@ -1,5 +1,6 @@
 #include "TriangleAdapter.h"
 #include <cassert>
+#include "../memento/TriangleMemento.h"
 
 TriangleAdapter::TriangleAdapter(Point firstPoint, Point secondPoint,
 	Point thirdPoint, std::string type,
@@ -115,6 +116,27 @@ void TriangleAdapter::ChangeOutlineColor(const sf::Color& color)
 void TriangleAdapter::ChangeOutlineThickness(float thickness)
 {
 	m_outlineThickness = thickness;
+}
+
+sf::Color TriangleAdapter::GetFillColor()
+{
+	return m_fillColor;
+}
+
+sf::Color TriangleAdapter::GetOutlineColor()
+{
+	return m_outlineColor;
+}
+
+float TriangleAdapter::GetOutlineThickness()
+{
+	return m_outlineThickness;
+}
+
+
+std::shared_ptr<IShape> TriangleAdapter::CreateMemento()
+{
+    return std::make_shared<TriangleAdapter>(*this);
 }
 
 double TriangleAdapter::Distation(const Point& firstPoint, const Point& secondPoint)

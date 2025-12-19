@@ -1,4 +1,5 @@
 #include "CGroupShape.h"
+#include "../memento/GroupShapesMemento.h"
 
 CGroupShape::CGroupShape(std::map<int, std::shared_ptr<IShape>> groupedShapes,
 	std::shared_ptr<ICanvasSFML> canvas):
@@ -115,4 +116,15 @@ void CGroupShape::ChangeOutlineThickness(float thickness)
 	{
 		shape->ChangeOutlineThickness(thickness);
 	}
+}
+
+std::shared_ptr<IShape> CGroupShape::CreateMemento()
+{
+	auto clone = std::make_shared<CGroupShape>(*this);
+	for (const auto& [id, shape] : m_groupedShapes)
+	{
+		clone->m_groupedShapes[id] = shape->CreateMemento();
+	}
+	clone->m_selected = m_selected;
+	return clone;
 }

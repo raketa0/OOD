@@ -1,6 +1,7 @@
 #include "CircleAdapter.h"
 #include <string>
 #include <cassert>
+#include "../memento/CircleMemento.h"
 
 CircleAdapter::CircleAdapter(Point centerCircle, int radius,
 	std::string type, std::shared_ptr<ICanvasSFML> canvas) :
@@ -80,5 +81,25 @@ void CircleAdapter::ChangeOutlineColor(const sf::Color& color)
 void CircleAdapter::ChangeOutlineThickness(float thickness)
 {
 	m_outlineThickness = thickness;
+}
+
+sf::Color CircleAdapter::GetFillColor()
+{
+	return m_fillColor;
+}
+
+sf::Color CircleAdapter::GetOutlineColor()
+{
+	return m_outlineColor;
+}
+
+float CircleAdapter::GetOutlineThickness()
+{
+	return m_outlineThickness;
+}
+
+std::shared_ptr<IShape> CircleAdapter::CreateMemento()
+{
+	return std::make_shared<CircleAdapter>(*this);
 }
 

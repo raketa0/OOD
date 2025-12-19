@@ -7,6 +7,7 @@
 #include "../interactive/CShapeDraggerMove.h"
 #include "../ToolBar/state/IState.h"
 #include "../ToolBar/IToolBar.h"
+#include "../memento/HistoryShapes.h"
 
 enum State
 {
@@ -27,12 +28,15 @@ public:
     std::shared_ptr<CÑompositionShapes> GetComposition();
     std::unique_ptr<CShapeSelector>& GetSelector();
     std::unique_ptr<CShapeDraggerMove>& GetDragger();
-    std::shared_ptr<IToolBar> GetToolbar() { return m_toolbar; }
+    std::shared_ptr<IToolBar> GetToolbar();
+   
 
     void SetState(State newState);
     std::shared_ptr<IState> GetState();
-    State& GetAppState() { return m_appState; }
+    State& GetAppState();
 
+    void Undo();
+    void Redo();
 
     Application(const Application&) = delete;
     Application& operator=(const Application&) = delete;

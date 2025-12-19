@@ -7,6 +7,7 @@
 #include <memory>
 #include <string>
 #include <cassert>
+#include "../memento/CompositionShapesMemento.h"
 
 CÑompositionShapes::CÑompositionShapes(std::shared_ptr<ICanvasSFML> canvas, int curentShapeId)
     : m_canvas(std::move(canvas)),
@@ -186,6 +187,32 @@ void CÑompositionShapes::ApplyOutlineThickness(sf::Vector2i pos)
         if (shape->IsClick(pos))
         {
             shape->ChangeOutlineThickness(m_outlineThickness);
+        }
+    }
+}
+
+std::shared_ptr<IMementoShapes> CÑompositionShapes::CreateMement()
+{
+    return std::make_shared<CompositionShapesMemento>(*this);
+}
+
+void CÑompositionShapes::SetCompositionShapes(std::map<int, std::shared_ptr<IShape>>& shapes)
+{
+    m_shapes.clear();
+    m_curentShapeId = 0;
+
+    for (auto& [id, shape] : shapes)
+    {
+        if (!shape) 
+        {
+            continue;
+        }
+
+        m_shapes[id] = shape->CreateMemento();
+
+        if (id > m_curentShapeId)
+        {
+            m_curentShapeId = id;
         }
     }
 }

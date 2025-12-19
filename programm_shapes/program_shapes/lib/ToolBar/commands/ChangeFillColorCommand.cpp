@@ -1,4 +1,5 @@
 #include "ChangeFillColorCommand.h"
+#include "../../memento/HistoryShapes.h"
 
 ChangeFillColorCommand::ChangeFillColorCommand(std::shared_ptr<CÑompositionShapes> compositionShapes, 
 	const sf::Color& newColor):
@@ -7,5 +8,6 @@ ChangeFillColorCommand::ChangeFillColorCommand(std::shared_ptr<CÑompositionShape
 
 void ChangeFillColorCommand::Execute()
 {
+	HistoryShapes::GetInstance().AddMemento(m_compositionShapes->CreateMement());
 	m_compositionShapes->ChangeFillColor(m_newColor);
 }

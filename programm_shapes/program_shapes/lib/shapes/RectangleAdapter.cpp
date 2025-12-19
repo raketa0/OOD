@@ -1,5 +1,6 @@
 #include "RectangleAdapter.h"
 #include <cassert>
+#include "../memento/RectangleMemento.h"
 
 RectangleAdapter::RectangleAdapter(Point leftTopCorner, int width,
 	int height, std::string type,
@@ -79,6 +80,26 @@ void RectangleAdapter::ChangeOutlineColor(const sf::Color& color)
 void RectangleAdapter::ChangeOutlineThickness(float thickness)
 {
 	m_outlineThickness = thickness;
+}
+
+sf::Color RectangleAdapter::GetFillColor()
+{
+	return m_fillColor;
+}
+
+sf::Color RectangleAdapter::GetOutlineColor()
+{
+	return m_outlineColor;
+}
+
+float RectangleAdapter::GetOutlineThickness()
+{
+	return m_outlineThickness;
+}
+
+std::shared_ptr<IShape> RectangleAdapter::CreateMemento()
+{
+	return std::make_shared<RectangleAdapter>(*this);
 }
 
 

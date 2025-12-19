@@ -25,6 +25,8 @@ public:
 	void ChangeOutlineColor(const sf::Color& color) override;
 	void ChangeOutlineThickness(float thickness) override;
 
+	std::shared_ptr<IShape> CreateMemento() override;
+
 private:
     FrameParameters m_frameParameters = { {0, 0}, 0, 0 };
 

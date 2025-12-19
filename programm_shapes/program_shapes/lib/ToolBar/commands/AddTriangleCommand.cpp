@@ -1,4 +1,5 @@
 #include "AddTriangleCommand.h"
+#include "../../memento/HistoryShapes.h"
 
 AddTriangleCommand::AddTriangleCommand(std::shared_ptr<CÑompositionShapes> composition, 
 	std::shared_ptr<ICanvasSFML> canvas, 
@@ -15,6 +16,8 @@ AddTriangleCommand::AddTriangleCommand(std::shared_ptr<CÑompositionShapes> compo
 
 void AddTriangleCommand::Execute()
 {
+	HistoryShapes::GetInstance().AddMemento(m_composition->CreateMement());
+
 	auto triangle = std::make_shared<TriangleAdapter>(
 		m_firstPoint,
 		m_secondPoint,

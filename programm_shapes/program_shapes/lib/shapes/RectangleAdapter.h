@@ -27,6 +27,11 @@ public:
 	void ChangeOutlineColor(const sf::Color& color) override;
 	void ChangeOutlineThickness(float thickness) override;
 
+	sf::Color GetFillColor() override;
+	sf::Color GetOutlineColor() override;
+	float GetOutlineThickness() override;
+
+	std::shared_ptr<IShape> CreateMemento() override;
 private:
 	Point m_leftTopCorner;
 	int m_width;

@@ -14,6 +14,7 @@ void SelectState::OnMouseButtonPressed(sf::Event& event)
 
             bool shiftPressed = sf::Keyboard::isKeyPressed(sf::Keyboard::Key::LShift) ||
                 sf::Keyboard::isKeyPressed(sf::Keyboard::Key::RShift);
+            HistoryShapes::GetInstance().AddMemento(m_aplication.GetComposition()->CreateMement());
 
             m_aplication.GetSelector()->OnClick(pos, shiftPressed);
             m_aplication.GetDragger()->StartDrag(pos);
@@ -40,7 +41,10 @@ void SelectState::OnMouseButtonReleased(sf::Event& event)
         const auto* mouse = event.getIf<sf::Event::MouseButtonReleased>();
         if (mouse && mouse->button == sf::Mouse::Button::Left)
         {
+
             m_aplication.GetDragger()->EndDrag();
+            HistoryShapes::GetInstance().AddMemento(m_aplication.GetComposition()->CreateMement());
+
         }
     }
 }
@@ -56,11 +60,23 @@ void SelectState::OnKeyPressed(sf::Event& event)
 
         if (ctrlPressed && key && key->code == sf::Keyboard::Key::G)
         {
+            HistoryShapes::GetInstance().AddMemento(m_aplication.GetComposition()->CreateMement());
+
             m_aplication.GetSelector()->GroupSelectedShapes();
         }
         else if (ctrlPressed && key && key->code == sf::Keyboard::Key::U)
         {
+            HistoryShapes::GetInstance().AddMemento(m_aplication.GetComposition()->CreateMement());
+
             m_aplication.GetSelector()->UngroupSelectedShape();
+        }
+        else if (ctrlPressed && key && key->code == sf::Keyboard::Key::Z)
+        {
+            m_aplication.Undo();
+        }
+        else if (ctrlPressed && key && key->code == sf::Keyboard::Key::Y)
+        {
+            m_aplication.Redo();
         }
     }
 }
