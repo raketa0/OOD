@@ -1,5 +1,6 @@
 #include "TriangleAdapter.h"
 #include <cassert>
+#include "../visitor/IShapeVisitor.h"
 
 TriangleAdapter::TriangleAdapter(Point firstPoint, Point secondPoint,
 	Point thirdPoint, std::string type,
@@ -136,6 +137,11 @@ float TriangleAdapter::GetOutlineThickness()
 std::shared_ptr<IShape> TriangleAdapter::CreateMemento()
 {
     return std::make_shared<TriangleAdapter>(*this);
+}
+
+void TriangleAdapter::Accept(IShapeVisitor& visitor)
+{
+    visitor.VisitTriangle(*this);
 }
 
 double TriangleAdapter::Distation(const Point& firstPoint, const Point& secondPoint)

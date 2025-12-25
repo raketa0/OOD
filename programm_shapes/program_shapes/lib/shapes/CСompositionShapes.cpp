@@ -216,3 +216,23 @@ void CÑompositionShapes::SetCompositionShapes(std::map<int, std::shared_ptr<ISha
         }
     }
 }
+
+void CÑompositionShapes::ApplyVisitor(IShapeVisitor& visitor)
+{
+    for (auto& [id, shape] : m_shapes)
+    {
+        shape->Accept(visitor);
+    }
+}
+
+void CÑompositionShapes::ApplyVisitorToClickedShape(const sf::Vector2i& pos, IShapeVisitor& visitor)
+{
+    for (auto& [id, shape] : m_shapes)
+    {
+        if (shape->IsClick(pos))
+        {
+            shape->Accept(visitor);
+            break;
+        }
+    }
+}

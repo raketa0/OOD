@@ -78,3 +78,7 @@ std::shared_ptr<IShape> IShape::CreateMemento()
 {
 	return nullptr;
 }
+
+void IShape::Accept(IShapeVisitor& visitor)
+{
+}

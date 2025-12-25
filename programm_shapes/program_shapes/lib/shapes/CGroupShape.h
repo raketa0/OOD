@@ -26,6 +26,7 @@ public:
 	void ChangeOutlineThickness(float thickness) override;
 
 	std::shared_ptr<IShape> CreateMemento() override;
+    void Accept(IShapeVisitor& visitor);
 
 private:
     FrameParameters m_frameParameters = { {0, 0}, 0, 0 };

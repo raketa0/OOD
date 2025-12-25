@@ -13,6 +13,7 @@
 #include "../tools/Parser.h"
 #include "../tools/ShapesStruct.h"
 #include <map>
+#include "../visitor/IShapeVisitor.h"
 
 
 class CÑompositionShapes : public IShape
@@ -41,6 +42,9 @@ public:
 	float GetOutlineThickness() const { return m_outlineThickness; }
 	std::shared_ptr<IMementoShapes> CreateMement();
 	void SetCompositionShapes(std::map<int, std::shared_ptr<IShape>>& shapes);
+	void ApplyVisitor(IShapeVisitor& visitor);
+	void ApplyVisitorToClickedShape(const sf::Vector2i& pos, IShapeVisitor& visitor);
+
 private:
 	std::map<int, std::shared_ptr<IShape>> m_shapes;
 	std::shared_ptr<ICanvasSFML> m_canvas;

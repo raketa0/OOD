@@ -32,6 +32,7 @@ public:
 	float GetOutlineThickness() override;
 	std::shared_ptr<IShape> CreateMemento() override;
 
+	void Accept(IShapeVisitor& visitor);
 
 private:
 	Point m_centerCircle;

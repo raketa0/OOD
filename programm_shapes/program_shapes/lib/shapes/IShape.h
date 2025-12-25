@@ -4,6 +4,7 @@
 #include "../tools/ShapesStruct.h"
 #include <map>
 #include "../memento/IMementoShapes.h"
+#include "../visitor/IShapeVisitor.h"
 class IShape
 {
 public:
@@ -28,5 +29,8 @@ public:
 	virtual void ChangeOutlineThickness(float thickness);
 
 	virtual std::shared_ptr<IShape> CreateMemento();
+
+	virtual void Accept(IShapeVisitor& visitor);
+
 };
 

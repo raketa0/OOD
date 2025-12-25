@@ -102,3 +102,7 @@ std::shared_ptr<IShape> CircleAdapter::CreateMemento()
 	return std::make_shared<CircleAdapter>(*this);
 }
 
+void CircleAdapter::Accept(IShapeVisitor& visitor)
+{
+	visitor.VisitCircle(*this);
+}

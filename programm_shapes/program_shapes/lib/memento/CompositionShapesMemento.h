@@ -5,7 +5,7 @@
 class CompositionShapesMemento : public IMementoShapes
 {
 public:
-    explicit CompositionShapesMemento(CÑompositionShapes& composition);
+    CompositionShapesMemento(CÑompositionShapes& composition);
 
     void Restore() override;
 

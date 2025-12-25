@@ -1,4 +1,7 @@
 #include "FillState.h"
+#include "../../visitor/FillColorVisitor.h"
+#include "../../visitor/OutlineColorVisitor.h"
+#include "../../visitor/OutlineThicknessVisitor.h"
 
 FillState::FillState(sf::Color fillColor, sf::Color outlineColor, float outlineThickness)
     : m_fillColor(fillColor), m_outlineColor(outlineColor), m_outlineThickness(outlineThickness) {}
@@ -16,9 +19,15 @@ void FillState::OnMouseButtonPressed(sf::Event& event)
     {
         if (shape && shape->IsClick(clickPos))
         {
-            m_composition->ApplyFill(clickPos);
-            m_composition->ApplyOutlineColor(clickPos);
-            m_composition->ApplyOutlineThickness(clickPos);
+            sf::Color fillColor = m_app.GetComposition()->GetFillColor();
+            sf::Color outlineColor = m_app.GetComposition()->GetOutlineColor();
+            float outlineThinkess = m_app.GetComposition()->GetOutlineThickness();
+            FillColorVisitor fillColorVisitor(fillColor);
+            OutlineColorVisitor outlineColorVisitor(outlineColor);
+            OutlineThicknessVisitor outlineThicknessVisitor(outlineThinkess);
+            m_composition->ApplyVisitorToClickedShape(clickPos, outlineThicknessVisitor);
+            m_composition->ApplyVisitorToClickedShape(clickPos, outlineColorVisitor);
+            m_composition->ApplyVisitorToClickedShape(clickPos, fillColorVisitor);
             break;
         }
     }

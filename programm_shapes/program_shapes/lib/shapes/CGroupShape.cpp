@@ -127,3 +127,12 @@ std::shared_ptr<IShape> CGroupShape::CreateMemento()
 	clone->m_selected = m_selected;
 	return clone;
 }
+
+void CGroupShape::Accept(IShapeVisitor& visitor)
+{
+	visitor.VisitGroup(*this);
+	for (auto& [id, shape] : m_groupedShapes)
+	{
+		shape->Accept(visitor);
+	}
+}

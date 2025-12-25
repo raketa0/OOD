@@ -1,5 +1,6 @@
 #include "RectangleAdapter.h"
 #include <cassert>
+#include "../visitor/IShapeVisitor.h"
 
 RectangleAdapter::RectangleAdapter(Point leftTopCorner, int width,
 	int height, std::string type,
@@ -99,6 +100,11 @@ float RectangleAdapter::GetOutlineThickness()
 std::shared_ptr<IShape> RectangleAdapter::CreateMemento()
 {
 	return std::make_shared<RectangleAdapter>(*this);
+}
+
+void RectangleAdapter::Accept(IShapeVisitor& visitor)
+{
+	visitor.VisitRectangle(*this);
 }
 
 

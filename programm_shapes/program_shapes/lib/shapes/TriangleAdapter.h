@@ -33,6 +33,7 @@ public:
 	sf::Color GetOutlineColor() override;
 	float GetOutlineThickness() override;
 	std::shared_ptr<IShape> CreateMemento() override;
+	void Accept(IShapeVisitor& visitor);
 
 private:
 	Point m_firstPoint;
