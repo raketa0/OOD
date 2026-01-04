@@ -3,6 +3,7 @@
 #include "IShape.h"
 #include <map>
 #include <memory>
+#include <string>
 
 class CGroupShape : public IShape
 {
@@ -24,6 +25,7 @@ public:
 	void ChangeFillColor(const sf::Color& color) override;
 	void ChangeOutlineColor(const sf::Color& color) override;
 	void ChangeOutlineThickness(float thickness) override;
+    std::string GetCharacteristics() override;
 
 	std::shared_ptr<IShape> CreateMemento() override;
     void Accept(IShapeVisitor& visitor);

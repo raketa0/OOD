@@ -36,6 +36,11 @@ void CÑompositionShapes::Draw()
     }
 }
 
+void CÑompositionShapes::CloseAllShapes()
+{
+	m_shapes.clear();
+}
+
 void CÑompositionShapes::LoadFromFile(const std::string& filename)
 {
     std::ifstream fin(filename);
@@ -156,6 +161,16 @@ void CÑompositionShapes::ChangeOutlineColor(const sf::Color& color)
 void CÑompositionShapes::ChangeOutlineThickness(float thickness)
 {
 	m_outlineThickness = thickness;
+}
+
+std::string CÑompositionShapes::GetCharacteristics()
+{
+    std::string characteristics;
+    for (auto& [id, shape] : m_shapes)
+    {
+        characteristics += std::to_string(id) + SPACE_CHAR + shape->GetCharacteristics() + NEWLINE;
+    }
+	return characteristics;
 }
 
 void CÑompositionShapes::ApplyFill(sf::Vector2i pos)

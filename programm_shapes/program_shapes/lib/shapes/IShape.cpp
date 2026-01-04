@@ -62,6 +62,7 @@ float IShape::GetOutlineThickness()
 	return 0.0f;
 }
 
+
 void IShape::ChangeFillColor(const sf::Color& color)
 {
 }

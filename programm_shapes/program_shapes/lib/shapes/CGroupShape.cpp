@@ -1,5 +1,8 @@
 #include "CGroupShape.h"
 
+const std::string GROUP_TYPE_CHARACTERISTICS = "Group Characteristics:\n";
+const char NEWLINE_ = '\n';
+
 CGroupShape::CGroupShape(std::map<int, std::shared_ptr<IShape>> groupedShapes,
 	std::shared_ptr<ICanvasSFML> canvas):
 	m_groupedShapes(std::move(groupedShapes)),
@@ -115,6 +118,16 @@ void CGroupShape::ChangeOutlineThickness(float thickness)
 	{
 		shape->ChangeOutlineThickness(thickness);
 	}
+}
+
+std::string CGroupShape::GetCharacteristics()
+{
+	std::string characteristics = GROUP_TYPE_CHARACTERISTICS;
+	for (auto& [id, shape] : m_groupedShapes)
+	{
+		characteristics += shape->GetCharacteristics() + NEWLINE_;
+	}
+	return characteristics;
 }
 
 std::shared_ptr<IShape> CGroupShape::CreateMemento()

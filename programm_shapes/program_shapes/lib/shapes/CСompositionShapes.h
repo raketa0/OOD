@@ -22,7 +22,7 @@ public:
 	CÑompositionShapes(std::shared_ptr<ICanvasSFML> canvas, int curentShapeId = ZERO);
 
 	void Draw() override;
-
+	void CloseAllShapes();
 	void AddShape(std::shared_ptr<IShape> shape);
 	void RemoveShapeById(int id);
 
@@ -34,6 +34,7 @@ public:
 	void ChangeFillColor(const sf::Color& color);
 	void ChangeOutlineColor(const sf::Color& color);
 	void ChangeOutlineThickness(float thickness);
+	std::string GetCharacteristics() override;
 	void ApplyFill(sf::Vector2i pos);
 	void ApplyOutlineColor(sf::Vector2i pos);
 	void ApplyOutlineThickness(sf::Vector2i pos);
@@ -44,7 +45,7 @@ public:
 	void SetCompositionShapes(std::map<int, std::shared_ptr<IShape>>& shapes);
 	void ApplyVisitor(IShapeVisitor& visitor);
 	void ApplyVisitorToClickedShape(const sf::Vector2i& pos, IShapeVisitor& visitor);
-
+	std::shared_ptr<ICanvasSFML> GetCanvas() { return m_canvas; }
 private:
 	std::map<int, std::shared_ptr<IShape>> m_shapes;
 	std::shared_ptr<ICanvasSFML> m_canvas;

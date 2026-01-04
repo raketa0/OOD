@@ -1,0 +1,14 @@
+7 Rectangle: (Height: 50, Width: 50Left Top Corner(995, 592, Fill Color: 16711935, Outline Color: 4278190335, Outline Thickness: 5,000000)
+8 Circle: (Center(883, 674), Radius: 25, Fill Color: 4294967295, Outline Color: 4294967295, Outline Thickness: 4,000000)
+9 Group Characteristics:
+Rectangle: (Height: 100, Width: 100Left Top Corner(319, 275, Fill Color: 16711935, Outline Color: 4278190335, Outline Thickness: 5,000000)
+Rectangle: (Height: 50, Width: 50Left Top Corner(435, 395, Fill Color: 16711935, Outline Color: 4278190335, Outline Thickness: 5,000000)
+
+10 Group Characteristics:
+Circle: (Center(858, 272), Radius: 50, Fill Color: 65535, Outline Color: 16711935, Outline Thickness: 3,000000)
+Circle: (Center(978, 310), Radius: 25, Fill Color: 65535, Outline Color: 16711935, Outline Thickness: 3,000000)
+
+11 Group Characteristics:
+Triangle: (First Point: (1522, 385), Second Point: (1752, 115), Third Point: (1502, 215), Fill Color: 4278190335, Outline Color: 65535, Outline Thickness: 1,000000)
+Triangle: (First Point: (1399, 249), Second Point: (1449, 299), Third Point: (1324, 349), Fill Color: 4278190335, Outline Color: 65535, Outline Thickness: 1,000000)
+

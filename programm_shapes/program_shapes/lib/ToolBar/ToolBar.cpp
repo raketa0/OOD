@@ -7,6 +7,10 @@
 #include "commands/SetStateCommand.h"
 #include "commands/ChangeOutlineThicknessCommand.h"
 #include "../tools/Constants.h"
+#include "commands/SaveTextCommand.h"
+#include "commands/SaveBinaryCommand.h"
+#include "commands/LoadTextCommand.h"
+#include "commands/LoadBinaryCommand.h"
 
 std::string LABEL_RECTANGLE = "Rectangle";
 std::string LABEL_TRIANGLE = "Triangle";
@@ -132,6 +136,31 @@ void ToolBar::SetupDefaultButtons()
     AddButton(size, position, LABEL_OUTLINE_5,
         std::make_shared<ChangeOutlineThicknessCommand>(m_app.GetComposition(), THICKNESS_5));
     x += BTN_WIDTH + BTN_MARGIN;
+
+    std::string LABEL_SAVE_TEXT = "Save TXT";
+    std::string LABEL_SAVE_BINARY = "Save BIN";
+
+    position = sf::Vector2f(x, y);
+    AddButton(size, position, LABEL_SAVE_TEXT,
+        std::make_shared<SaveTextCommand>(m_app.GetComposition()));
+    x += BTN_WIDTH + BTN_MARGIN;
+
+    position = sf::Vector2f(x, y);
+    AddButton(size, position, LABEL_SAVE_BINARY,
+        std::make_shared<SaveBinaryCommand>(m_app.GetComposition()));
+    x += BTN_WIDTH + BTN_MARGIN;
+
+    x = BTN_START_X;
+    y += BTN_HEIGHT + BTN_MARGIN;
+
+    position = sf::Vector2f(x, y);
+    AddButton(size, position, "Load TXT",
+        std::make_shared<LoadTextCommand>(m_app.GetComposition()));
+    x += BTN_WIDTH + BTN_MARGIN;
+
+    position = sf::Vector2f(x, y);
+    AddButton(size, position, "Load BIN",
+        std::make_shared<LoadBinaryCommand>(m_app.GetComposition()));
 }
 
 void ToolBar::Draw()

@@ -9,6 +9,8 @@ const unsigned int WINDOW_HEIGHT = 1000;
 const int NUM_POINTS_PER_TRIANGLE = 3;
 const int NUM_COORDS_PER_POINT = 2;
 const int TOTAL_COORDS = NUM_POINTS_PER_TRIANGLE * NUM_COORDS_PER_POINT;
+const int FIRST_INDEX = 0;
+const int ZERO_INDEX = 0;
 
 const int FIRST_X_INDEX = 0;
 const int FIRST_Y_INDEX = 1;
@@ -21,6 +23,8 @@ const int THIRD_Y_INDEX = 5;
 
 const int FIRST_COORD_COUNT = 0;
 const int SECOND_COORD_COUNT = 1;
+const int ZERO_WIDTH = 0;
+const int ZERO_HIGHT = 0;
 
 const int ZERO = 0;
 
@@ -91,3 +95,4 @@ constexpr uint8_t BUTTON_FILL_R = 200;
 constexpr uint8_t BUTTON_FILL_G = 200;
 constexpr uint8_t BUTTON_FILL_B = 200;
 constexpr const char* FONT_PATH = "Arial.ttf";
+

@@ -9,6 +9,7 @@ class IShape
 {
 public:
 	virtual void Draw() = 0;
+	virtual std::string GetCharacteristics() = 0;
 
 	virtual double Perimeter();
 	virtual double Area();

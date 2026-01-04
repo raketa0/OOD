@@ -30,6 +30,7 @@ public:
 	sf::Color GetFillColor() override;
 	sf::Color GetOutlineColor() override;
 	float GetOutlineThickness() override;
+	std::string GetCharacteristics() override;
 
 	std::shared_ptr<IShape> CreateMemento() override;
 	void Accept(IShapeVisitor& visitor);

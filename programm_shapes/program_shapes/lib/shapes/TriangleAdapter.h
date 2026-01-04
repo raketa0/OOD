@@ -29,6 +29,7 @@ public:
 	void ChangeFillColor(const sf::Color& color) override;
 	void ChangeOutlineColor(const sf::Color& color) override;
 	void ChangeOutlineThickness(float thickness) override;
+	std::string GetCharacteristics() override;
 	sf::Color GetFillColor() override;
 	sf::Color GetOutlineColor() override;
 	float GetOutlineThickness() override;
